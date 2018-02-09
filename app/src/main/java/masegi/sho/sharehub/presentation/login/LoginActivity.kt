@@ -1,18 +1,29 @@
 package masegi.sho.sharehub.presentation.login
 
-import android.support.v7.app.AppCompatActivity
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.widget.Button
 
 import masegi.sho.sharehub.R
+import masegi.sho.sharehub.databinding.ActivityLoginBinding
+import masegi.sho.sharehub.presentation.common.BaseActivity
 import masegi.sho.sharehub.util.GithubLoginUtils
 
 /**
  * A login screen that offers login via email/password.
  */
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
+
+    private val binding by lazy {
+
+        DataBindingUtil.setContentView<ActivityLoginBinding>(
+                this,
+                R.layout.activity_login
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
@@ -22,5 +33,4 @@ class LoginActivity : AppCompatActivity() {
             this.startActivity(GithubLoginUtils.authorizationIntent(from = this))
         }
     }
-
 }

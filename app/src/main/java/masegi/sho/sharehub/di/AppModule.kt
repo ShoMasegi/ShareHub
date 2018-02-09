@@ -1,5 +1,7 @@
 package masegi.sho.sharehub.di
 
+import android.app.Application
+import android.content.Context
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -15,8 +17,7 @@ import kotlin.reflect.jvm.internal.impl.javax.inject.Singleton
 @Module
 internal object AppModule {
 
-    @Singleton @Provides
-    fun provideMoshi() = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
+    @Singleton @Provides @JvmStatic
+    fun provideContext(application: Application): Context = application
+
 }
