@@ -78,9 +78,15 @@ dependencies {
     // =====Support Library
     //noinspection GradleCompatible
     implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
+    //noinspection GradleCompatible
+    implementation "com.android.support:customtabs:$versions.supportLibrary"
+
 
     // =====Ui
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    // =====Ktx
+    implementation "androidx.core:core-ktx:0.1"
 
     // =====Test
     testImplementation 'junit:junit:4.12'

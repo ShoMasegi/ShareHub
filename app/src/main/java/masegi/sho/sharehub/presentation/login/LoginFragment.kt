@@ -11,6 +11,7 @@ import dagger.android.support.DaggerFragment
 
 import masegi.sho.sharehub.R
 import masegi.sho.sharehub.databinding.FragmentLoginBinding
+import masegi.sho.sharehub.presentation.NavigationController
 import javax.inject.Inject
 
 class LoginFragment : DaggerFragment() {
@@ -20,8 +21,8 @@ class LoginFragment : DaggerFragment() {
 
         ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
     }
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var navigationController: NavigationController
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

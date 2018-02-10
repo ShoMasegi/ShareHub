@@ -19,5 +19,4 @@ internal object AppModule {
 
     @Singleton @Provides @JvmStatic
     fun provideContext(application: Application): Context = application
-
 }

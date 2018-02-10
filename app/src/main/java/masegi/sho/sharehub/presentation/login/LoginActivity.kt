@@ -6,13 +6,17 @@ import android.widget.Button
 
 import masegi.sho.sharehub.R
 import masegi.sho.sharehub.databinding.ActivityLoginBinding
+import masegi.sho.sharehub.presentation.NavigationController
 import masegi.sho.sharehub.presentation.common.BaseActivity
 import masegi.sho.sharehub.util.GithubLoginUtils
+import javax.inject.Inject
 
 /**
  * A login screen that offers login via email/password.
  */
 class LoginActivity : BaseActivity() {
+
+    @Inject lateinit var navigationController: NavigationController
 
     private val binding by lazy {
 
@@ -30,7 +34,7 @@ class LoginActivity : BaseActivity() {
         val button: Button = findViewById(R.id.login_browser_button)
         button.setOnClickListener {
 
-            this.startActivity(GithubLoginUtils.authorizationIntent(from = this))
+            navigationController.navigationToExternalBrowser(GithubLoginUtils.authorizationUrl.toString())
         }
     }
 }
