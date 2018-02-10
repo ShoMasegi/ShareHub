@@ -12,21 +12,33 @@ import dagger.android.support.DaggerFragment
 import masegi.sho.sharehub.R
 import masegi.sho.sharehub.databinding.FragmentLoginBinding
 import masegi.sho.sharehub.presentation.NavigationController
+import masegi.sho.sharehub.util.GithubLoginUtils
 import javax.inject.Inject
 
 class LoginFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentLoginBinding
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var navigationController: NavigationController
     private val loginViewModel: LoginViewModel by lazy {
 
         ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
     }
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-    @Inject lateinit var navigationController: NavigationController
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+
+        binding = FragmentLoginBinding.inflate(inflater, container!!, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        super.onViewCreated(view, savedInstanceState)
+        binding.loginBrowserButton.setOnClickListener {
+
+            navigationController.navigationToExternalBrowser(GithubLoginUtils.authorizationUrl.toString())
+        }
     }
 
     override fun onAttach(context: Context?) {
@@ -35,5 +47,10 @@ class LoginFragment : DaggerFragment() {
 
     override fun onDetach() {
         super.onDetach()
+    }
+
+    companion object {
+
+        fun newInstance(): LoginFragment = LoginFragment()
     }
 }

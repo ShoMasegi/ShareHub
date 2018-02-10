@@ -4,11 +4,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.support.customtabs.CustomTabsIntent
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import androidx.net.toUri
 import masegi.sho.sharehub.R
+import masegi.sho.sharehub.presentation.login.LoginFragment
 import masegi.sho.sharehub.util.CustomTabsHelper
 import javax.inject.Inject
 
@@ -18,8 +20,21 @@ import javax.inject.Inject
 
 class NavigationController @Inject constructor(private val activity: AppCompatActivity) {
 
-//    private val containerId: Int = R.id.content
+    private val containerId: Int = R.id.content
     private val fragmentManager: FragmentManager = activity.supportFragmentManager
+
+    fun navigateToLogin() {
+
+        replaceFragment(LoginFragment.newInstance())
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+
+        fragmentManager
+                .beginTransaction()
+                .replace(containerId, fragment, null)
+                .commitAllowingStateLoss()
+    }
 
     fun navigationToExternalBrowser(url: String) {
 

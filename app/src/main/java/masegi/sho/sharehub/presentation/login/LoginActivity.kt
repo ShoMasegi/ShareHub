@@ -8,6 +8,7 @@ import masegi.sho.sharehub.R
 import masegi.sho.sharehub.databinding.ActivityLoginBinding
 import masegi.sho.sharehub.presentation.NavigationController
 import masegi.sho.sharehub.presentation.common.BaseActivity
+import masegi.sho.sharehub.presentation.common.DrawerMenu
 import masegi.sho.sharehub.util.GithubLoginUtils
 import javax.inject.Inject
 
@@ -17,6 +18,7 @@ import javax.inject.Inject
 class LoginActivity : BaseActivity() {
 
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var drawerMenu: DrawerMenu
 
     private val binding by lazy {
 
@@ -29,12 +31,23 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.let {
 
-        val button: Button = findViewById(R.id.login_browser_button)
-        button.setOnClickListener {
+            it.setDisplayHomeAsUpEnabled(false)
+        }
+        if (savedInstanceState == null) {
 
-            navigationController.navigationToExternalBrowser(GithubLoginUtils.authorizationUrl.toString())
+            navigationController.navigateToLogin()
+        }
+        drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar)
+    }
+
+    override fun onBackPressed() {
+
+        if (drawerMenu.closeDrawerIfNeeded()) {
+
+            super.onBackPressed()
         }
     }
 }
