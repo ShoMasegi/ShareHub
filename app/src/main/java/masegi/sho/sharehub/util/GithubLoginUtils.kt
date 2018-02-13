@@ -59,10 +59,12 @@ class GithubLoginUtils {
                         accessToken.enqueue(object : Callback<AccessToken> {
 
                             override fun onResponse(call: Call<AccessToken>?, response: Response<AccessToken>?) {
+
                                 Log.e("Access_Token: ", "get!!")
                             }
 
                             override fun onFailure(call: Call<AccessToken>?, t: Throwable?) {
+
                                 Log.e("Access_Token: ", "not found...")
                             }
                         })

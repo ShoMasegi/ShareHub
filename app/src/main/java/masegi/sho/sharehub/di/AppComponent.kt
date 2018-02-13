@@ -6,7 +6,7 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import masegi.sho.sharehub.App
 import masegi.sho.sharehub.di.activitymodule.LoginActivityBuilder
-import kotlin.reflect.jvm.internal.impl.javax.inject.Singleton
+import javax.inject.Singleton
 
 /**
  * Created by masegi on 2018/02/02.
@@ -16,6 +16,7 @@ import kotlin.reflect.jvm.internal.impl.javax.inject.Singleton
 @Component(modules = [
     AndroidSupportInjectionModule::class,
     AppModule::class,
+    NetworkModule::class,
     ViewModelModule::class,
     LoginActivityBuilder::class
 ])
@@ -24,7 +25,8 @@ interface AppComponent : AndroidInjector<App> {
     @Component.Builder
     interface Builder {
 
-        @BindsInstance fun application(application: App) : Builder
+        @BindsInstance fun application(application: App): Builder
+        fun networkModule(networkModule: NetworkModule): Builder
         fun build(): AppComponent
     }
 

@@ -3,6 +3,7 @@ package masegi.sho.sharehub.presentation.login
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +19,8 @@ import javax.inject.Inject
 class LoginFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentLoginBinding
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val loginViewModel: LoginViewModel by lazy {
 
         ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
@@ -45,6 +46,12 @@ class LoginFragment : DaggerFragment() {
         super.onAttach(context)
     }
 
+    override fun onResume() {
+
+        super.onResume()
+
+    }
+
     override fun onDetach() {
         super.onDetach()
     }
@@ -53,4 +60,5 @@ class LoginFragment : DaggerFragment() {
 
         fun newInstance(): LoginFragment = LoginFragment()
     }
+
 }

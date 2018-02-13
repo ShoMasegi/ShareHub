@@ -26,11 +26,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
 
         super.onResume()
-        var uri: Uri? = intent?.data
-        if (uri != null) {
-
-            Toast.makeText(this, "yay!", Toast.LENGTH_SHORT)
-        }
         GithubLoginUtils.handleAuthIntent(intent)
     }
 }
