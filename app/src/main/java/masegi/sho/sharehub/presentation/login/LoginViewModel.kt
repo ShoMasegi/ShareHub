@@ -2,6 +2,10 @@ package masegi.sho.sharehub.presentation.login
 
 import android.arch.lifecycle.ViewModel
 import android.util.Log
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import masegi.sho.sharehub.data.api.GithubLoginApi
 import masegi.sho.sharehub.data.model.AccessToken
 import masegi.sho.sharehub.util.GithubLoginUtils
@@ -20,22 +24,32 @@ class LoginViewModel @Inject constructor(
 
     fun handleAuth(tokenCode: String) {
 
-        api.getAccessToken(
+        val accessToken = api.getAccessToken(
                 tokenCode,
                 GithubLoginUtils.clientId,
                 GithubLoginUtils.clientSecret,
                 GithubLoginUtils.redirectUrl
-        ).enqueue(object : Callback<AccessToken> {
+        )
+        accessToken
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                        onError = { t ->
 
-            override fun onResponse(call: Call<AccessToken>?, response: Response<AccessToken>?) {
+                            Log.e("LoginViewModel", "Error : ${t.message}")
+                        },
+                        onSuccess = { accessToken ->
 
-                Log.e("LoginVieModel", "GET Access Token!!")
-            }
+                            Log.e("LoginViewModel", "GET AccessToken : ${accessToken.accessToken}")
+                        }
+                )
+                .addTo(compositeDisposable)
+    }
 
-            override fun onFailure(call: Call<AccessToken>?, t: Throwable?) {
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-                Log.i("LoginVieModel", "Can not GET Access Token...")
-            }
-        })
+    override fun onCleared() {
+
+        super.onCleared()
+        compositeDisposable.clear()
     }
 }

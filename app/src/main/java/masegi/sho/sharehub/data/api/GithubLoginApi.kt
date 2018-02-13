@@ -1,7 +1,7 @@
 package masegi.sho.sharehub.data.api
 
+import io.reactivex.Single
 import masegi.sho.sharehub.data.model.AccessToken
-import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Headers
@@ -21,5 +21,5 @@ interface GithubLoginApi {
                        @Field("client_id") clientId: String,
                        @Field("client_secret") clientSecret: String,
                        @Field("redirect_uri") redirectUrl: String
-    ): Call<AccessToken>
+    ): Single<AccessToken>
 }

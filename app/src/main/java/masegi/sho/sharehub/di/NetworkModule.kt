@@ -3,6 +3,7 @@ package masegi.sho.sharehub.di
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import masegi.sho.sharehub.data.api.ApplicationJsonAdapterFactory
 import masegi.sho.sharehub.data.api.GithubApi
 import masegi.sho.sharehub.data.api.GithubLoginApi
 import masegi.sho.sharehub.util.GithubLoginUtils
@@ -33,7 +34,12 @@ open class NetworkModule {
         return Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl("https://github.com/login/oauth/")
-                .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
+                .addConverterFactory(
+                        MoshiConverterFactory.create(
+                                Moshi.Builder()
+                                        .add(ApplicationJsonAdapterFactory.instance)
+                                        .build())
+                )
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .build()
     }
@@ -44,7 +50,12 @@ open class NetworkModule {
         return Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl("https://api.github.com/")
-                .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
+                .addConverterFactory(
+                        MoshiConverterFactory.create(
+                                Moshi.Builder()
+                                        .add(ApplicationJsonAdapterFactory.instance)
+                                        .build())
+                )
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .build()
     }
