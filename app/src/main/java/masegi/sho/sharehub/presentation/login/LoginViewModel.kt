@@ -7,11 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import masegi.sho.sharehub.data.api.GithubLoginApi
-import masegi.sho.sharehub.data.model.AccessToken
 import masegi.sho.sharehub.util.GithubLoginUtils
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 /**
@@ -22,7 +18,10 @@ class LoginViewModel @Inject constructor(
         private val api: GithubLoginApi
 ): ViewModel() {
 
-    fun handleAuth(tokenCode: String) {
+
+    // MARK: - Internal
+
+    internal fun handleAuth(tokenCode: String) {
 
         val accessToken = api.getAccessToken(
                 tokenCode,
@@ -45,7 +44,13 @@ class LoginViewModel @Inject constructor(
                 .addTo(compositeDisposable)
     }
 
+
+    // MARK: - Private
+
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
+
+    // MARK: - ViewModel
 
     override fun onCleared() {
 

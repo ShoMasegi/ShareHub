@@ -3,12 +3,6 @@ package masegi.sho.sharehub.util
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
-import masegi.sho.sharehub.data.api.service.LoginService
-import masegi.sho.sharehub.data.model.AccessToken
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * Created by masegi on 2018/02/01.
@@ -38,39 +32,5 @@ class GithubLoginUtils {
 
         @JvmStatic fun authorizationIntent(from: Context): Intent =
                 Intent(Intent.ACTION_VIEW, this.authorizationUrl)
-
-
-        @JvmStatic fun handleAuthIntent(intent: Intent?) {
-
-            if (intent?.data != null) {
-
-                val uri: Uri = intent.data
-                if (uri.toString().startsWith(this.redirectUrl)) {
-
-                    val code: String? = uri.getQueryParameter("code")
-                    if (code != null) {
-
-                        val accessToken: Call<AccessToken> = LoginService.getLoginRestClient().getAccessToken(
-                                this.clientId,
-                                this.clientSecret,
-                                code
-                        )
-
-                        accessToken.enqueue(object : Callback<AccessToken> {
-
-                            override fun onResponse(call: Call<AccessToken>?, response: Response<AccessToken>?) {
-
-                                Log.e("Access_Token: ", "get!!")
-                            }
-
-                            override fun onFailure(call: Call<AccessToken>?, t: Throwable?) {
-
-                                Log.e("Access_Token: ", "not found...")
-                            }
-                        })
-                    }
-                }
-            }
-        }
     }
 }

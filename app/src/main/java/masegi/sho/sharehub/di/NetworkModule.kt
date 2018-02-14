@@ -6,7 +6,6 @@ import dagger.Provides
 import masegi.sho.sharehub.data.api.ApplicationJsonAdapterFactory
 import masegi.sho.sharehub.data.api.GithubApi
 import masegi.sho.sharehub.data.api.GithubLoginApi
-import masegi.sho.sharehub.util.GithubLoginUtils
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
