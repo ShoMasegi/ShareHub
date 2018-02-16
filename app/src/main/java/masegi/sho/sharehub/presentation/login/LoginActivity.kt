@@ -18,7 +18,7 @@ import masegi.sho.sharehub.util.GithubLoginUtils
 import javax.inject.Inject
 
 /**
- * A login screen that offers login via email/password.
+ * A getUser screen that offers getUser via email/password.
  */
 class LoginActivity : BaseActivity() {
 

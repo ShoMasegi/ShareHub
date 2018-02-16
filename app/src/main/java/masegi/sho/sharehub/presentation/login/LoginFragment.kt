@@ -42,11 +42,13 @@ class LoginFragment : DaggerFragment() {
             navigationController.navigationToExternalBrowser(GithubLoginUtils.authorizationUrl.toString())
         }
         setupLoginManage()
-    }
+        binding.loginButton.setOnClickListener {
 
-    override fun onResume() {
-
-        super.onResume()
+            val username = binding.userName.text.toString()
+            val password = binding.password.text.toString()
+            val twoFactor = binding.twoFactor.text.toString()
+            loginViewModel.login(username, password, twoFactor)
+        }
     }
 
     private fun setupLoginManage() {
@@ -71,6 +73,15 @@ class LoginFragment : DaggerFragment() {
             binding.loginButton.setVisible(!it)
             binding.loginBrowserButton.setVisible(!it)
             binding.loginProgress.setVisible(it)
+        })
+        loginViewModel.isTwoFactor.observeNonNull(this, {
+
+            if (it) {
+
+                binding.twoFactorForm.setVisible(it)
+                Toast.makeText(context, R.string.login_require_two_factor, Toast.LENGTH_LONG)
+                        .show()
+            }
         })
     }
 

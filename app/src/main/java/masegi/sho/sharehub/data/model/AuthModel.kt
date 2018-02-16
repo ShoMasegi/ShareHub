@@ -11,14 +11,14 @@ import org.parceler.Parcel
 
 @Parcel
 data class AuthModel(
-        val clientId: String = GithubLoginUtils.clientId,
-        val clientSecret: String = GithubLoginUtils.clientSecret,
-        var scope: List<String> = listOf("user", "repo", "gist", "notifications", "read:org"),
+        @Json(name = "client_id") val clientId: String = GithubLoginUtils.clientId,
+        @Json(name = "client_secret") val clientSecret: String = GithubLoginUtils.clientSecret,
+        var scopes: List<String> = listOf("user", "repo", "gist", "notifications", "read:org"),
         val note: String = BuildConfig.APPLICATION_ID,
-        val noteUrl: String = GithubLoginUtils.redirectUrl,
+        @Json(name = "note_url") val noteUrl: String = GithubLoginUtils.redirectUrl,
         @Json(name = "X-GitHub-OTP") var otp: String?
 ) {
 
+    constructor(twoFactorCode: String?) : this(otp = twoFactorCode)
     private constructor() : this(otp = null)
-
 }

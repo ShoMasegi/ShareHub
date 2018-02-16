@@ -21,7 +21,7 @@ class MainViewModel @Inject constructor(): ViewModel() {
 
         val accessToken = Prefs.accessToken
         val api = LoginProvider.getLoginService(accessToken, null)
-        val login = api.loginAccessToken()
+        val login = api.getUser()
         login.observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onError = { t ->

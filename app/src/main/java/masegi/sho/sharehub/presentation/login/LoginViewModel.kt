@@ -10,9 +10,12 @@ import io.reactivex.rxkotlin.subscribeBy
 import masegi.sho.sharehub.data.api.GithubLoginApi
 import masegi.sho.sharehub.data.api.LoginProvider
 import masegi.sho.sharehub.data.model.AccessToken
-import masegi.sho.sharehub.data.model.Login
+import masegi.sho.sharehub.data.model.AuthModel
 import masegi.sho.sharehub.presentation.common.pref.Prefs
 import masegi.sho.sharehub.util.GithubLoginUtils
+import masegi.sho.sharehub.util.ext.code
+import okhttp3.Credentials
+import retrofit2.HttpException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -30,6 +33,7 @@ class LoginViewModel @Inject constructor(
 
     internal var isLoginSuccess: MutableLiveData<Boolean> = MutableLiveData()
     internal var isLoading: MutableLiveData<Boolean> = MutableLiveData()
+    internal var isTwoFactor: MutableLiveData<Boolean> = MutableLiveData()
 
     internal fun handleAuth(tokenCode: String) {
 
@@ -50,11 +54,34 @@ class LoginViewModel @Inject constructor(
                         },
                         onSuccess = { accessToken ->
 
-                            Prefs.accessToken = accessToken.accessToken
-                            login(accessToken)
+                            accessToken.accessToken?.let {
+
+                                Prefs.accessToken = it
+                                getUser(accessToken)
+                            }
                         }
                 )
                 .addTo(compositeDisposable)
+    }
+
+    internal fun login(username: String, password: String, twoFactorCode: String?) {
+
+        isLoading.value = true
+        val authModel = AuthModel(twoFactorCode)
+        val authToken = Credentials.basic(username, password)
+        val response = LoginProvider.getLoginService(authToken, twoFactorCode).login(authModel)
+        response.observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                        onError = this::onError,
+                        onSuccess = { accessToken ->
+
+                            accessToken.token?.let {
+
+                                Prefs.accessToken = it
+                                getUser(accessToken)
+                            }
+                        }
+                )
     }
 
 
@@ -62,26 +89,50 @@ class LoginViewModel @Inject constructor(
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    private fun login(accessToken: AccessToken) {
+    private fun getUser(accessToken: AccessToken) {
 
         isLoading.value = true
-        val api = LoginProvider.getLoginService(accessToken.accessToken, null)
-        val login = api.loginAccessToken()
-        login.observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onError = { t ->
+        val token = accessToken.accessToken ?: accessToken.token
+        if (token == null) {
 
-                            Log.e("LoginViewModel", t.message)
-                            isLoading.value = false
-                            isLoginSuccess.value = false
-                        },
+            isLoading.value = false
+            isLoginSuccess.value = false
+            return
+        }
+        LoginProvider.getLoginService(token, null)
+                .getUser()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                        onError = this::onError,
                         onSuccess = {
 
+                            Log.e("LoginViewModel", it.login)
                             isLoading.value = false
                             isLoginSuccess.value = true
                         }
                 )
                 .addTo(compositeDisposable)
+    }
+
+    private fun onError(throwable: Throwable) {
+
+        if (throwable.code == 401 && throwable is HttpException) {
+
+            val response = throwable.response()
+            if (response?.headers() != null) {
+
+                val twoFactorToken = response.headers().get("X-GitHub-OTP")
+                if (twoFactorToken != null) {
+
+                    isTwoFactor.value = true
+                    isLoading.value = false
+                    return
+                }
+            }
+        }
+        Log.e("LoginViewModel", throwable.message)
+        isLoading.value = false
+        isLoginSuccess.value = false
     }
 
 
