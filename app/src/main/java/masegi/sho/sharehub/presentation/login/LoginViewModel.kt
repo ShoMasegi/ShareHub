@@ -38,7 +38,7 @@ class LoginViewModel @Inject constructor(
     internal fun handleAuth(tokenCode: String) {
 
         isLoading.value = true
-        val accessToken = githubApi.getAccessToken(
+        val accessToken = LoginProvider.getOauthLoginService().getAccessToken(
                 tokenCode,
                 GithubLoginUtils.clientId,
                 GithubLoginUtils.clientSecret,
@@ -47,7 +47,7 @@ class LoginViewModel @Inject constructor(
         accessToken
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
-                        onError = { t ->
+                        onError = {
 
                             isLoading.value = false
                             isLoginSuccess.value = false

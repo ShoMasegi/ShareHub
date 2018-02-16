@@ -17,9 +17,7 @@ import masegi.sho.sharehub.presentation.common.pref.Prefs
 import masegi.sho.sharehub.util.GithubLoginUtils
 import javax.inject.Inject
 
-/**
- * A getUser screen that offers getUser via email/password.
- */
+
 class LoginActivity : BaseActivity() {
 
     @Inject lateinit var navigationController: NavigationController

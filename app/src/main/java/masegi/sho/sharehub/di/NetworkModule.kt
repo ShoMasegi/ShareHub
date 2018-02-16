@@ -32,7 +32,7 @@ open class NetworkModule {
 
         return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://github.com/getUser/oauth/")
+                .baseUrl("https://github.com/login/oauth/")
                 .addConverterFactory(
                         MoshiConverterFactory.create(
                                 Moshi.Builder()
