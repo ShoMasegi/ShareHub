@@ -36,7 +36,9 @@ dependencies {
             retrofit      : "2.3.0",
             kotshi        : "0.3.0",
             dagger        : "2.13",
-            arch          : "1.0.0"
+            arch          : "1.0.0",
+            kotpref       : "2.3.0",
+            parcel        : "1.1.1"
     ]
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -74,7 +76,13 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$versions.arch"
     implementation "android.arch.lifecycle:reactivestreams:$versions.arch"
     kapt "android.arch.lifecycle:compiler:$versions.arch"
-
+    // kotpref
+    implementation "com.chibatching.kotpref:kotpref:$versions.kotpref"
+    implementation "com.chibatching.kotpref:initializer:$versions.kotpref"
+    implementation "com.chibatching.kotpref:enum-support:$versions.kotpref"
+    // parcel
+    compile "org.parceler:parceler-api:$versions.parcel"
+    kapt "org.parceler:parceler:$versions.parcel"
     // =====Support Library
     //noinspection GradleCompatible
     implementation "com.android.support:appcompat-v7:$versions.supportLibrary"

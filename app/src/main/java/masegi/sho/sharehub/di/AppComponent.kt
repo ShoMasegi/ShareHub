@@ -6,6 +6,7 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import masegi.sho.sharehub.App
 import masegi.sho.sharehub.di.activitymodule.LoginActivityBuilder
+import masegi.sho.sharehub.di.activitymodule.MainActivityBuilder
 import javax.inject.Singleton
 
 /**
@@ -18,7 +19,8 @@ import javax.inject.Singleton
     AppModule::class,
     NetworkModule::class,
     ViewModelModule::class,
-    LoginActivityBuilder::class
+    LoginActivityBuilder::class,
+    MainActivityBuilder::class
 ])
 interface AppComponent : AndroidInjector<App> {
 

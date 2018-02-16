@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.widget.Button
 
 import masegi.sho.sharehub.R
@@ -12,6 +13,7 @@ import masegi.sho.sharehub.databinding.ActivityLoginBinding
 import masegi.sho.sharehub.presentation.NavigationController
 import masegi.sho.sharehub.presentation.common.BaseActivity
 import masegi.sho.sharehub.presentation.common.DrawerMenu
+import masegi.sho.sharehub.presentation.common.pref.Prefs
 import masegi.sho.sharehub.util.GithubLoginUtils
 import javax.inject.Inject
 
@@ -49,18 +51,17 @@ class LoginActivity : BaseActivity() {
             navigationController.navigateToLogin()
         }
         drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar)
+        if (!Prefs.accessToken.isNullOrEmpty()) {
+
+            navigationController.navigateToMainActivity()
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {
 
         super.onNewIntent(intent)
         onHandleAuthIntent(intent)
-    }
-
-    override fun onResume() {
-
-        super.onResume()
-        onHandleAuthIntent(intent)
+        setIntent(null)
     }
 
     override fun onBackPressed() {
@@ -82,9 +83,6 @@ class LoginActivity : BaseActivity() {
                 if(!tokenCode.isNullOrEmpty()) {
 
                     loginViewModel.handleAuth(tokenCode)
-                }
-                else {
-
                 }
             }
         }

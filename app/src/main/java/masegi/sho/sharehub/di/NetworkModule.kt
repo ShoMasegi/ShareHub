@@ -3,7 +3,7 @@ package masegi.sho.sharehub.di
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
-import masegi.sho.sharehub.data.api.ApplicationJsonAdapterFactory
+import masegi.sho.sharehub.data.api.helper.ApplicationJsonAdapterFactory
 import masegi.sho.sharehub.data.api.GithubApi
 import masegi.sho.sharehub.data.api.GithubLoginApi
 import okhttp3.OkHttpClient

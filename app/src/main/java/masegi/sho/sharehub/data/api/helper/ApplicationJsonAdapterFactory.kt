@@ -1,4 +1,4 @@
-package masegi.sho.sharehub.data.api
+package masegi.sho.sharehub.data.api.helper
 
 import com.squareup.moshi.JsonAdapter
 import se.ansman.kotshi.KotshiJsonAdapterFactory

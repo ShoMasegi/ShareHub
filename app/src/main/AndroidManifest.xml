@@ -22,7 +22,7 @@
             android:name=".presentation.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:configChanges="keyboard|orientation|screenSize"
-            android:launchMode="singleTask">
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />

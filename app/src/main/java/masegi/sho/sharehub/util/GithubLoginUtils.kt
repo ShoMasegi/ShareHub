@@ -15,7 +15,7 @@ class GithubLoginUtils {
         val clientId = "79aedc3f8bf6e4d8df60"
         val clientSecret = "8ab86e0b63a7a4251b9a3485e18a3b7e4e78eeed"
         val redirectUrl = "sharehub://login"
-        val scope = "user,repo"
+        val scope = "user,repo, gist, notifications, read:org"
 
         @JvmStatic val authorizationUrl =
                 Uri.Builder().scheme("https")
@@ -28,9 +28,5 @@ class GithubLoginUtils {
                 .appendQueryParameter("scope", this.scope)
 //                .appendQueryParameter("state", BuildConfig.APPLICATION_ID)
                 .build()
-
-
-        @JvmStatic fun authorizationIntent(from: Context): Intent =
-                Intent(Intent.ACTION_VIEW, this.authorizationUrl)
     }
 }

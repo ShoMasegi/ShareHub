@@ -28,6 +28,11 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(LoginFragment.newInstance())
     }
 
+    fun navigateToMainActivity() {
+
+        MainActivity.start(activity)
+    }
+
     private fun replaceFragment(fragment: Fragment) {
 
         fragmentManager

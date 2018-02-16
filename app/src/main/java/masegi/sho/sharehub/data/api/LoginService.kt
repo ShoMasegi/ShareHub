@@ -6,24 +6,26 @@ import masegi.sho.sharehub.data.model.AccessToken
 import masegi.sho.sharehub.data.model.AuthModel
 import masegi.sho.sharehub.data.model.Login
 import retrofit2.http.*
-import javax.inject.Singleton
 
 /**
- * Created by masegi on 2018/02/11.
+ * Created by masegi on 2018/02/14.
  */
 
-@Singleton
-interface GithubLoginApi {
+interface LoginService {
 
-    @GET("user") fun loginAccessToken(): Observable<Login>
+    @GET("user")
+    fun loginAccessToken(): Single<Login>
 
-    @POST("authorizations") fun login(@Body authModel: AuthModel): Observable<AccessToken>
+    @POST("authorizations")
+    fun login(@Body authModel: AuthModel)
 
-    @FormUrlEncoded @POST("access_token")
+    @FormUrlEncoded
+    @POST("access_token")
     @Headers("Accept: application/json")
     fun getAccessToken(@Field("code") code: String,
                        @Field("client_id") clientId: String,
                        @Field("client_secret") clientSecret: String,
                        @Field("redirect_uri") redirectUrl: String
     ): Single<AccessToken>
+
 }

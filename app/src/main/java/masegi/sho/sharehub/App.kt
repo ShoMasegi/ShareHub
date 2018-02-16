@@ -1,5 +1,6 @@
 package masegi.sho.sharehub
 
+import com.chibatching.kotpref.Kotpref
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import masegi.sho.sharehub.di.DaggerAppComponent
@@ -10,6 +11,12 @@ import masegi.sho.sharehub.di.NetworkModule
  */
 
 open class App : DaggerApplication() {
+
+    override fun onCreate() {
+
+        super.onCreate()
+        Kotpref.init(this)
+    }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
 
