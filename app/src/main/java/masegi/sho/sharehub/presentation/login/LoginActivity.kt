@@ -5,17 +5,13 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
-import android.widget.Button
 
 import masegi.sho.sharehub.R
-import masegi.sho.sharehub.data.model.AccessToken
 import masegi.sho.sharehub.databinding.ActivityLoginBinding
 import masegi.sho.sharehub.presentation.NavigationController
 import masegi.sho.sharehub.presentation.common.BaseActivity
 import masegi.sho.sharehub.presentation.common.DrawerMenu
-import masegi.sho.sharehub.presentation.common.pref.Prefs
 import masegi.sho.sharehub.util.GithubLoginUtils
 import javax.inject.Inject
 
@@ -23,12 +19,11 @@ import javax.inject.Inject
 class LoginActivity : BaseActivity(), NavigationController.FragmentReplacable {
 
     @Inject lateinit var navigationController: NavigationController
-    @Inject lateinit var drawerMenu: DrawerMenu
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun replaceFragment(fragment: Fragment) {
 
-        navigationController.navigateToLogin()
+        navigationController.replaceFragment(fragment)
     }
 
     private val loginViewModel: LoginViewModel by lazy {
@@ -47,14 +42,10 @@ class LoginActivity : BaseActivity(), NavigationController.FragmentReplacable {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null && binding != null) {
 
-            navigationController.navigateToLogin()
+            navigationController.navigateToSplash()
         }
-//        if (!Prefs.accessToken.isNullOrEmpty()) {
-//
-//            navigationController.navigateToMainActivity()
-//        }
     }
 
     override fun onNewIntent(intent: Intent?) {

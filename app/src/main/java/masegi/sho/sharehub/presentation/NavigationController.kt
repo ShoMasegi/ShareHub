@@ -39,7 +39,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         MainActivity.start(activity)
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment) {
 
         fragmentManager
                 .beginTransaction()

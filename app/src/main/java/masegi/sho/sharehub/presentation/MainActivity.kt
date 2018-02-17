@@ -4,8 +4,10 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import masegi.sho.sharehub.R
+import masegi.sho.sharehub.databinding.ActivityMainBinding
 import masegi.sho.sharehub.presentation.common.BaseActivity
 import masegi.sho.sharehub.presentation.common.DrawerMenu
 import javax.inject.Inject
@@ -19,12 +21,23 @@ class MainActivity : BaseActivity() {
 
         ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
     }
+    private val binding by lazy {
+
+        DataBindingUtil.setContentView<ActivityMainBinding>(
+                this,
+                R.layout.activity_main
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.let {
 
+            it.setDisplayHomeAsUpEnabled(false)
+        }
+        drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar)
     }
 
     companion object {

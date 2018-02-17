@@ -7,5 +7,4 @@ import retrofit2.HttpException
  */
 
 val Throwable.code: Int
-    get() =
-        if (this is HttpException) (this as HttpException).code() else -1
+    get() = (this as? HttpException)?.code() ?: -1
