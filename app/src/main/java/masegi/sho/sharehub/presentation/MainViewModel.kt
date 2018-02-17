@@ -1,41 +1,39 @@
 package masegi.sho.sharehub.presentation
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import android.util.Log
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
-import masegi.sho.sharehub.data.api.LoginProvider
-import masegi.sho.sharehub.presentation.common.pref.Prefs
+import android.arch.paging.LivePagedListBuilder
+import android.arch.paging.PagedList
+import masegi.sho.sharehub.data.api.GithubApi
+import masegi.sho.sharehub.data.model.Event
+import masegi.sho.sharehub.data.model.NetworkState
+import masegi.sho.sharehub.data.paging.EventDataSourceFactory
 import javax.inject.Inject
 
 /**
  * Created by masegi on 2018/02/14.
  */
 
-class MainViewModel @Inject constructor(): ViewModel() {
+class MainViewModel @Inject constructor(
+        private val api: GithubApi
+): ViewModel() {
 
 
-    internal fun login() {
+    // MARK: - Internal
 
-        val accessToken = Prefs.accessToken
-        val api = LoginProvider.getLoginService(accessToken, null)
-        val login = api.getUser()
-        login.observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onError = { t ->
+    internal val events: LiveData<PagedList<Event>>
 
-                            Log.e("LoginViewModel", "Error : ${t.message}")
-                            Prefs.accessToken = ""
-                        },
-                        onSuccess = { login ->
+    internal val networkState: LiveData<NetworkState>
 
-                            Log.e("LoginViewModel", "GET Login : ${login.login}")
-                        }
-                )
-                .addTo(compositeDisposable)
+    init {
+
+        val factory = EventDataSourceFactory(api)
+        val config = PagedList.Config.Builder()
+                .setInitialLoadSizeHint(50)
+                .setPageSize(50)
+                .build()
+
+        events = LivePagedListBuilder(factory, config).build()
+        networkState = factory.source.networkState
     }
-
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 }

@@ -19,4 +19,9 @@ object Prefs : KotprefModel() {
             default = "",
             key = R.string.pref_key_otp
     )
+
+    var login: String by stringPref(
+            default = "",
+            key = R.string.pref_key_login
+    )
 }

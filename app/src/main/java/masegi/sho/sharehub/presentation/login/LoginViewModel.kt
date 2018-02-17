@@ -99,6 +99,7 @@ class LoginViewModel @Inject constructor(): ViewModel() {
                         onError = this::onError,
                         onSuccess = {
 
+                            it.login?.let { Prefs.login = it }
                             isLoading.value = false
                             isLoginSuccess.value = true
                         }

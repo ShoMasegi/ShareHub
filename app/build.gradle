@@ -76,6 +76,8 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$versions.arch"
     implementation "android.arch.lifecycle:reactivestreams:$versions.arch"
     kapt "android.arch.lifecycle:compiler:$versions.arch"
+    // paging
+    implementation 'android.arch.paging:runtime:1.0.0-alpha5'
     // kotpref
     implementation "com.chibatching.kotpref:kotpref:$versions.kotpref"
     implementation "com.chibatching.kotpref:initializer:$versions.kotpref"
