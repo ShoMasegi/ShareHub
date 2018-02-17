@@ -8,7 +8,6 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import dagger.android.support.DaggerFragment
 import masegi.sho.sharehub.data.model.AccessToken
 import masegi.sho.sharehub.databinding.FragmentSplashBinding
@@ -21,6 +20,9 @@ import javax.inject.Inject
 
 class SplashScreenFragment : DaggerFragment() {
 
+
+    // MARK: - Property
+
     private lateinit var binding: FragmentSplashBinding
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -28,6 +30,9 @@ class SplashScreenFragment : DaggerFragment() {
 
         ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
     }
+
+
+    // MARK: - Fragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -48,10 +53,13 @@ class SplashScreenFragment : DaggerFragment() {
 
             Handler().postDelayed( {
 
-                (activity as NavigationController.FragmentReplacable).replaceFragment(LoginFragment.newInstance())
-            }, 1000)
+                (activity as NavigationController.FragmentReplaceable).replaceFragment(LoginFragment.newInstance())
+            }, 2000)
         }
     }
+
+
+    // MARK: - Private
 
     private fun setupLoginManage() {
 
@@ -65,7 +73,7 @@ class SplashScreenFragment : DaggerFragment() {
                 }
                 false -> {
 
-                    (activity as NavigationController.FragmentReplacable).replaceFragment(LoginFragment.newInstance())
+                    (activity as NavigationController.FragmentReplaceable).replaceFragment(LoginFragment.newInstance())
                 }
             }
         })

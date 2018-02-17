@@ -7,7 +7,4 @@ import javax.inject.Qualifier
  */
 
 @Qualifier
-annotation class RetrofitLoginGithub
-
-@Qualifier
 annotation class RetrofitGithub

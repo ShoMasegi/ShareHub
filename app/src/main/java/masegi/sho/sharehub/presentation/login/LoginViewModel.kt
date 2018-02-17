@@ -7,7 +7,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import masegi.sho.sharehub.data.api.GithubLoginApi
 import masegi.sho.sharehub.data.api.LoginProvider
 import masegi.sho.sharehub.data.model.AccessToken
 import masegi.sho.sharehub.data.model.AuthModel

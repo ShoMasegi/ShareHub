@@ -11,20 +11,17 @@ import masegi.sho.sharehub.R
 import masegi.sho.sharehub.databinding.ActivityLoginBinding
 import masegi.sho.sharehub.presentation.NavigationController
 import masegi.sho.sharehub.presentation.common.BaseActivity
-import masegi.sho.sharehub.presentation.common.DrawerMenu
 import masegi.sho.sharehub.util.GithubLoginUtils
 import javax.inject.Inject
 
 
-class LoginActivity : BaseActivity(), NavigationController.FragmentReplacable {
+class LoginActivity : BaseActivity(), NavigationController.FragmentReplaceable {
+
+
+    // MARK: - Property
 
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    override fun replaceFragment(fragment: Fragment) {
-
-        navigationController.replaceFragment(fragment)
-    }
 
     private val loginViewModel: LoginViewModel by lazy {
 
@@ -38,6 +35,9 @@ class LoginActivity : BaseActivity(), NavigationController.FragmentReplacable {
                 R.layout.activity_login
         )
     }
+
+
+    // MARK: - Activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -55,6 +55,9 @@ class LoginActivity : BaseActivity(), NavigationController.FragmentReplacable {
         setIntent(null)
     }
 
+
+    // MARK: - Private
+
     private fun onHandleAuthIntent(intent: Intent?) {
 
         if (intent != null && intent.data != null) {
@@ -69,5 +72,13 @@ class LoginActivity : BaseActivity(), NavigationController.FragmentReplacable {
                 }
             }
         }
+    }
+
+
+    // MARK: - FragmentReplaceable
+
+    override fun replaceFragment(fragment: Fragment) {
+
+        navigationController.replaceFragment(fragment)
     }
 }

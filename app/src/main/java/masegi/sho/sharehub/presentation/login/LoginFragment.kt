@@ -12,7 +12,6 @@ import dagger.android.support.DaggerFragment
 import masegi.sho.sharehub.R
 import masegi.sho.sharehub.databinding.FragmentLoginBinding
 import masegi.sho.sharehub.presentation.NavigationController
-import masegi.sho.sharehub.presentation.common.pref.Prefs
 import masegi.sho.sharehub.util.GithubLoginUtils
 import masegi.sho.sharehub.util.ext.observeNonNull
 import masegi.sho.sharehub.util.ext.setVisible
@@ -20,13 +19,21 @@ import javax.inject.Inject
 
 class LoginFragment : DaggerFragment() {
 
-    private lateinit var binding: FragmentLoginBinding
+
+    // MARK: - Property
+
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private lateinit var binding: FragmentLoginBinding
+
     private val loginViewModel: LoginViewModel by lazy {
 
         ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
     }
+
+
+    // MARK: - Fragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -51,6 +58,9 @@ class LoginFragment : DaggerFragment() {
             loginViewModel.login(username, password, twoFactor)
         }
     }
+
+
+    // MARK: - Private
 
     private fun setupLoginManage() {
 
@@ -90,5 +100,4 @@ class LoginFragment : DaggerFragment() {
 
         fun newInstance(): LoginFragment = LoginFragment()
     }
-
 }

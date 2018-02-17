@@ -14,13 +14,18 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
+
+    // MARK: - Property
+
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var drawerMenu: DrawerMenu
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private val mainViewModel: MainViewModel by lazy {
 
         ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
     }
+
     private val binding by lazy {
 
         DataBindingUtil.setContentView<ActivityMainBinding>(
@@ -28,6 +33,9 @@ class MainActivity : BaseActivity() {
                 R.layout.activity_main
         )
     }
+
+
+    // MARK: - Activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -40,9 +48,17 @@ class MainActivity : BaseActivity() {
         drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar)
     }
 
+    override fun onBackPressed() {
+
+        if (drawerMenu.closeDrawerIfNeeded()) {
+
+            super.onBackPressed()
+        }
+    }
+
     companion object {
 
-        fun createIntent(context: Context): Intent = Intent(context, MainActivity::class.java)
+        private fun createIntent(context: Context): Intent = Intent(context, MainActivity::class.java)
 
         fun start(context: Context) {
 

@@ -21,8 +21,14 @@ import javax.inject.Inject
 
 class NavigationController @Inject constructor(private val activity: AppCompatActivity) {
 
+
+    // MARK: - Property
+
     private val containerId: Int = R.id.content
     private val fragmentManager: FragmentManager = activity.supportFragmentManager
+
+
+    // MARK: - Internal
 
     fun navigateToLogin() {
 
@@ -72,6 +78,9 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         activity.startActivity(customTabsIntent.intent.setData(webUri))
     }
 
+
+    // MARK: - Private
+
     private fun tryLaunchingSpecificApp(url: String, customTabsPackageName: String?): Boolean {
 
         val appUri = url.toUri().let {
@@ -111,7 +120,10 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         return false
     }
 
-    interface FragmentReplacable {
+
+    // MARK: - Interface
+
+    interface FragmentReplaceable {
 
         fun replaceFragment(fragment: Fragment)
     }
