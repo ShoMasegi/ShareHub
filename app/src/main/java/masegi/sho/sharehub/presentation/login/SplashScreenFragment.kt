@@ -1,26 +1,27 @@
 package masegi.sho.sharehub.presentation.login
 
+
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.TextView
 import dagger.android.support.DaggerFragment
+import masegi.sho.sharehub.data.model.AccessToken
+import masegi.sho.sharehub.databinding.FragmentSplashBinding
 
-import masegi.sho.sharehub.R
-import masegi.sho.sharehub.databinding.FragmentLoginBinding
 import masegi.sho.sharehub.presentation.NavigationController
 import masegi.sho.sharehub.presentation.common.pref.Prefs
-import masegi.sho.sharehub.util.GithubLoginUtils
 import masegi.sho.sharehub.util.ext.observeNonNull
 import masegi.sho.sharehub.util.ext.setVisible
 import javax.inject.Inject
 
-class LoginFragment : DaggerFragment() {
+class SplashScreenFragment : DaggerFragment() {
 
-    private lateinit var binding: FragmentLoginBinding
+    private lateinit var binding: FragmentSplashBinding
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val loginViewModel: LoginViewModel by lazy {
@@ -31,24 +32,24 @@ class LoginFragment : DaggerFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        binding = FragmentLoginBinding.inflate(inflater, container!!, false)
+        binding = FragmentSplashBinding.inflate(inflater, container!!, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-        binding.loginBrowserButton.setOnClickListener {
-
-            navigationController.navigationToExternalBrowser(GithubLoginUtils.authorizationUrl.toString())
-        }
         setupLoginManage()
-        binding.loginButton.setOnClickListener {
+        if (!Prefs.accessToken.isNullOrEmpty()) {
 
-            val username = binding.userName.text.toString()
-            val password = binding.password.text.toString()
-            val twoFactor = binding.twoFactor.text.toString()
-            loginViewModel.login(username, password, twoFactor)
+            loginViewModel.getUser(AccessToken(accessToken = Prefs.accessToken))
+        }
+        else {
+
+            Handler().postDelayed( {
+
+                (activity as NavigationController.FragmentReplacable).replaceFragment(LoginFragment.newInstance())
+            }, 1000)
         }
     }
 
@@ -64,31 +65,19 @@ class LoginFragment : DaggerFragment() {
                 }
                 false -> {
 
-                    Toast.makeText(context, R.string.login_fail_cant_get_token_data, Toast.LENGTH_LONG)
-                            .show()
+                    (activity as NavigationController.FragmentReplacable).replaceFragment(LoginFragment.newInstance())
                 }
             }
         })
         loginViewModel.isLoading.observeNonNull(this, {
 
-            binding.loginButton.setVisible(!it)
-            binding.loginBrowserButton.setVisible(!it)
-            binding.loginProgress.setVisible(it)
-        })
-        loginViewModel.isTwoFactor.observeNonNull(this, {
-
-            if (it) {
-
-                binding.twoFactorForm.setVisible(it)
-                Toast.makeText(context, R.string.login_require_two_factor, Toast.LENGTH_LONG)
-                        .show()
-            }
+            binding.splashProgress.setVisible(it)
         })
     }
 
     companion object {
 
-        fun newInstance(): LoginFragment = LoginFragment()
+        fun newInstance(): SplashScreenFragment = SplashScreenFragment()
     }
 
 }

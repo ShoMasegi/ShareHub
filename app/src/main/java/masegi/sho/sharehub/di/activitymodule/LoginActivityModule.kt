@@ -10,6 +10,7 @@ import masegi.sho.sharehub.di.ViewModelKey
 import masegi.sho.sharehub.presentation.login.LoginActivity
 import masegi.sho.sharehub.presentation.login.LoginFragment
 import masegi.sho.sharehub.presentation.login.LoginViewModel
+import masegi.sho.sharehub.presentation.login.SplashScreenFragment
 
 /**
  * Created by masegi on 2018/02/03.
@@ -23,6 +24,9 @@ interface LoginActivityModule {
 
     @ContributesAndroidInjector
     fun contributeLoginFragment(): LoginFragment
+
+    @ContributesAndroidInjector
+    fun contributeSplashFragment(): SplashScreenFragment
 
     @Binds @IntoMap @ViewModelKey(LoginViewModel::class)
     fun bindLoginViewModel(loginViewModel: LoginViewModel): ViewModel

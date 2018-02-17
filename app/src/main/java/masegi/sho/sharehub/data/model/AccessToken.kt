@@ -9,9 +9,8 @@ import se.ansman.kotshi.JsonSerializable
 
 @JsonSerializable
 data class AccessToken(
-        @Json(name = "access_token") val accessToken: String?,
-        @Json(name = "token_type") val tokenType: String?,
-        val token: String?,
-        @Json(name = "hashed_token") val hashedToken: String?
-
+        @Json(name = "access_token") var accessToken: String? = null,
+        @Json(name = "token_type") var tokenType: String? = null,
+        var token: String? = null,
+        @Json(name = "hashed_token") var hashedToken: String? = null
 )

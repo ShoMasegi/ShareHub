@@ -24,9 +24,7 @@ import javax.inject.Singleton
  */
 
 @Singleton
-class LoginViewModel @Inject constructor(
-        private val githubApi: GithubLoginApi
-): ViewModel() {
+class LoginViewModel @Inject constructor(): ViewModel() {
 
 
     // MARK: - Internal
@@ -84,12 +82,7 @@ class LoginViewModel @Inject constructor(
                 )
     }
 
-
-    // MARK: - Private
-
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-
-    private fun getUser(accessToken: AccessToken) {
+    internal fun getUser(accessToken: AccessToken) {
 
         isLoading.value = true
         val token = accessToken.accessToken ?: accessToken.token
@@ -106,13 +99,17 @@ class LoginViewModel @Inject constructor(
                         onError = this::onError,
                         onSuccess = {
 
-                            Log.e("LoginViewModel", it.login)
                             isLoading.value = false
                             isLoginSuccess.value = true
                         }
                 )
                 .addTo(compositeDisposable)
     }
+
+
+    // MARK: - Private
+
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private fun onError(throwable: Throwable) {
 

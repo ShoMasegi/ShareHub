@@ -6,9 +6,11 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.support.v4.app.Fragment
 import android.widget.Button
 
 import masegi.sho.sharehub.R
+import masegi.sho.sharehub.data.model.AccessToken
 import masegi.sho.sharehub.databinding.ActivityLoginBinding
 import masegi.sho.sharehub.presentation.NavigationController
 import masegi.sho.sharehub.presentation.common.BaseActivity
@@ -18,11 +20,17 @@ import masegi.sho.sharehub.util.GithubLoginUtils
 import javax.inject.Inject
 
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : BaseActivity(), NavigationController.FragmentReplacable {
 
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var drawerMenu: DrawerMenu
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    override fun replaceFragment(fragment: Fragment) {
+
+        navigationController.navigateToLogin()
+    }
+
     private val loginViewModel: LoginViewModel by lazy {
 
         ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
@@ -39,20 +47,14 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.let {
-
-            it.setDisplayHomeAsUpEnabled(false)
-        }
         if (savedInstanceState == null) {
 
             navigationController.navigateToLogin()
         }
-        drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar)
-        if (!Prefs.accessToken.isNullOrEmpty()) {
-
-            navigationController.navigateToMainActivity()
-        }
+//        if (!Prefs.accessToken.isNullOrEmpty()) {
+//
+//            navigationController.navigateToMainActivity()
+//        }
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -60,14 +62,6 @@ class LoginActivity : BaseActivity() {
         super.onNewIntent(intent)
         onHandleAuthIntent(intent)
         setIntent(null)
-    }
-
-    override fun onBackPressed() {
-
-        if (drawerMenu.closeDrawerIfNeeded()) {
-
-            super.onBackPressed()
-        }
     }
 
     private fun onHandleAuthIntent(intent: Intent?) {

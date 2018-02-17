@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import androidx.net.toUri
 import masegi.sho.sharehub.R
 import masegi.sho.sharehub.presentation.login.LoginFragment
+import masegi.sho.sharehub.presentation.login.SplashScreenFragment
 import masegi.sho.sharehub.util.CustomTabsHelper
 import javax.inject.Inject
 
@@ -26,6 +27,11 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     fun navigateToLogin() {
 
         replaceFragment(LoginFragment.newInstance())
+    }
+
+    fun navigateToSplash() {
+
+        replaceFragment(SplashScreenFragment.newInstance())
     }
 
     fun navigateToMainActivity() {
@@ -103,6 +109,11 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
             return true
         }
         return false
+    }
+
+    interface FragmentReplacable {
+
+        fun replaceFragment(fragment: Fragment)
     }
 
     companion object {
