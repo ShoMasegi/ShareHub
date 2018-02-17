@@ -74,6 +74,7 @@ class LoginViewModel @Inject constructor(): ViewModel() {
 
                             accessToken.token?.let {
 
+                                twoFactorCode?.let { Prefs.otp = it }
                                 Prefs.accessToken = it
                                 getUser(accessToken)
                             }

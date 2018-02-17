@@ -5,6 +5,8 @@ import dagger.Module
 import dagger.Provides
 import masegi.sho.sharehub.data.api.helper.ApplicationJsonAdapterFactory
 import masegi.sho.sharehub.data.api.GithubApi
+import masegi.sho.sharehub.data.api.helper.OAuthIntercepter
+import masegi.sho.sharehub.presentation.common.pref.Prefs
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -24,7 +26,12 @@ open class NetworkModule {
     }
 
     @Singleton @Provides
-    fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder().build()
+    fun provideOkHttpClient(): OkHttpClient =
+            OkHttpClient.Builder()
+                    .addInterceptor(OAuthIntercepter(
+                            Prefs.accessToken,
+                            Prefs.otp))
+                    .build()
 
     @RetrofitGithub @Singleton @Provides
     fun provideRetrofitForGithub(okHttpClient: OkHttpClient): Retrofit {
