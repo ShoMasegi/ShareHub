@@ -9,7 +9,7 @@ import se.ansman.kotshi.JsonSerializable
 
 @JsonSerializable
 data class Payload(
-        @Json(name = "push_id") val pushId: Long,
-        val ref: String,
-        val commits: List<Commit>
+        @Json(name = "push_id") val pushId: Long?,
+        val ref: String?,
+        val commits: List<Commit>?
 )

@@ -1,6 +1,7 @@
 package masegi.sho.sharehub.data.model
 
 import com.squareup.moshi.Json
+import se.ansman.kotshi.GetterName
 import se.ansman.kotshi.JsonSerializable
 import java.util.*
 
@@ -10,11 +11,11 @@ import java.util.*
 
 @JsonSerializable
 data class Event(
-        val id: Int,
+        val id: Long,
         val type: String,
         val actor: Actor,
         val repo: Repo,
-        @Json(name = "payload") val payload: Payload,
-        val public: Boolean
+        val payload: Payload?,
+        val publicEvent: Boolean?
 //        @Json(name = "created_at") val createdAt: Date
 )

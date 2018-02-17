@@ -11,9 +11,9 @@ import se.ansman.kotshi.JsonSerializable
 data class Repo(
         val id: Long,
         val name: String,
-        val fullName: String,
-        val owner: Actor,
-        @Json(name = "private") val privateRepo: Boolean,
-        val description: String,
+        val fullName: String?,
+        val owner: Actor?,
+        @Json(name = "private") val privateRepo: Boolean?,
+        val description: String?,
         val url: String
 )

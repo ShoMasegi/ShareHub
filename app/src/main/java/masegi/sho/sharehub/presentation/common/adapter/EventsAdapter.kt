@@ -32,11 +32,11 @@ class EventsAdapter : PagedListAdapter<Event, EventsAdapter.ViewHolder>(DIFF_CAL
 
     class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
-//        private val binding: ItemEventBinding = DataBindingUtil.bind(itemView)
+        private val binding: ItemEventBinding = DataBindingUtil.bind(itemView)
 
         fun bindEvent(event: Event?) {
 
-//            binding.event = event
+            binding.event = event
         }
     }
 
