@@ -38,11 +38,15 @@ dependencies {
             dagger        : "2.13",
             arch          : "1.0.0",
             kotpref       : "2.3.0",
-            parcel        : "1.1.1"
+            parcel        : "1.1.1",
+            glide         : "4.5.0"
     ]
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    // date
+    compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
 
     // =====Network
     // okhttp
@@ -93,6 +97,10 @@ dependencies {
 
     // =====Ui
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    // glide
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$versions.glide"
+    kapt "com.github.bumptech.glide:compiler:$versions.glide"
 
     // =====Ktx
     implementation "androidx.core:core-ktx:0.1"

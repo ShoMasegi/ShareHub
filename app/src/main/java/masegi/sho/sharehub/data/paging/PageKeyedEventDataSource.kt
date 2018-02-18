@@ -55,7 +55,9 @@ class PageKeyedEventDataSource(private val api: GithubApi) : PageKeyedDataSource
 
         try {
 
-            val response = api.getReceivedEvents(Prefs.login, page).execute()
+            // TODO: replace
+//            val response = api.getReceivedEvents(Prefs.login, page).execute()
+            val response = api.getEvents(page).execute()
 
             response.body()?.let { events ->
 

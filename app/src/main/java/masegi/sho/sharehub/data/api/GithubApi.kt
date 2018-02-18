@@ -18,4 +18,7 @@ interface GithubApi {
     @GET("users/{username}/received_events")
     fun getReceivedEvents(@Path("username") user: String,
                           @Query("page") page: Int): Call<List<Event>>
+
+    @GET("events")
+    fun getEvents(@Query("page") page: Int): Call<List<Event>>
 }

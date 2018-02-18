@@ -9,7 +9,10 @@
         <variable
             name="event"
             type="masegi.sho.sharehub.data.model.Event" />
-        <import type="masegi.sho.sharehub.data.model.Repo" />
+
+        <import type="masegi.sho.sharehub.util.LocalDateTimeUtil"
+            alias="TimeUtil" />
+        <import type="masegi.sho.sharehub.util.ext.LocalDateTimeExtKt" />
 
     </data>
 
@@ -17,21 +20,72 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/event_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:text="@{event.repo.name}"
+        <ImageView
+            android:id="@+id/actor_avatar"
+            android:layout_width="@{@dimen/actor_image_size, default=@dimen/actor_image_size}"
+            android:layout_height="@{@dimen/actor_image_size, default=@dimen/actor_image_size}"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/actor_avatar"
+            app:image_url="@{event.actor.avatarUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="RepositoryName" />
+            app:placeHolder="@{@drawable/actor_placeholder}"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/event_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="@color/eventBackground"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:text="@{event.type}"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/actor_avatar"
+            app:layout_constraintTop_toTopOf="@+id/actor_avatar"
+            tools:text="@string/event_type" />
+
+        <TextView
+            android:id="@+id/actor_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text='@{"by " + event.actor.displayLogin}'
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/event_name"
+            app:layout_constraintEnd_toStartOf="@+id/date"
+            app:layout_constraintStart_toEndOf="@+id/event_name"
+            app:layout_constraintTop_toTopOf="@+id/event_name"
+            tools:text="by ShoMasegi" />
+
+        <TextView
+            android:id="@+id/repo_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@{event.repo.name}"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/event_name"
+            app:layout_constraintTop_toBottomOf="@+id/event_name"
+            tools:text="CyberAgent/git-push-hackathon" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@{TimeUtil.durationFromToday(event.createdAt)}"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/actor_name"
+            tools:text="3 days ago" />
 
     </android.support.constraint.ConstraintLayout>
 
