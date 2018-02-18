@@ -71,7 +71,7 @@ class MainActivity : BaseActivity() {
 
     // MARK: - Private
 
-    fun setupLayout() {
+    private fun setupLayout() {
 
         binding.recycler.layoutManager = LinearLayoutManager(this)
         binding.recycler.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))

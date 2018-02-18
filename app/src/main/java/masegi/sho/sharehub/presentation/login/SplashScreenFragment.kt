@@ -77,10 +77,6 @@ class SplashScreenFragment : DaggerFragment() {
                 }
             }
         })
-        loginViewModel.isLoading.observeNonNull(this, {
-
-            binding.splashProgress.setVisible(it)
-        })
     }
 
     companion object {
