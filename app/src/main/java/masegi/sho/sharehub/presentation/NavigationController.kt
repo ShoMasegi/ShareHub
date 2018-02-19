@@ -62,7 +62,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         }
         val customTabsIntent = CustomTabsIntent.Builder()
                 .setShowTitle(true)
-                .setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+                .setToolbarColor(ContextCompat.getColor(activity, R.color.color_primary))
                 .build()
                 .apply {
 

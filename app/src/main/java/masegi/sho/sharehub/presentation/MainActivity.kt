@@ -51,7 +51,11 @@ class MainActivity : BaseActivity() {
 
             it.setDisplayHomeAsUpEnabled(false)
         }
-        drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar)
+
+        binding.navContent?.let {
+
+            drawerMenu.setup(binding.drawerLayout, binding.content, binding.drawer, it, binding.toolbar)
+        }
 
         setupLayout()
         mainViewModel.events.observe(this, { pagedList ->

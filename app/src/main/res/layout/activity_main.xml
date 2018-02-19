@@ -16,7 +16,14 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 style="@style/Toolbar"
-                android:elevation="0dp" />
+                android:elevation="4dp" >
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    style="@style/Toolbar.Title"
+                    android:text="Title" />
+
+            </android.support.v7.widget.Toolbar>
 
             <FrameLayout
                 android:id="@+id/content"
@@ -34,7 +41,13 @@
 
         <android.support.design.widget.NavigationView
             android:id="@+id/drawer"
-            style="@style/DrawerNavigation"/>
+            style="@style/DrawerNavigation">
+
+            <include
+                android:id="@+id/nav_content"
+                layout="@layout/nav_content"/>
+
+        </android.support.design.widget.NavigationView>
 
     </android.support.v4.widget.DrawerLayout>
 

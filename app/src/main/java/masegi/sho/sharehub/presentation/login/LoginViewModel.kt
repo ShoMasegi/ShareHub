@@ -76,13 +76,13 @@ class LoginViewModel @Inject constructor(): ViewModel() {
 
                                 twoFactorCode?.let { Prefs.otp = it }
                                 Prefs.accessToken = it
-                                getUser(accessToken)
+                                getUser(accessToken, twoFactorCode)
                             }
                         }
                 )
     }
 
-    internal fun getUser(accessToken: AccessToken) {
+    internal fun getUser(accessToken: AccessToken, otp: String? = null) {
 
         isLoading.value = true
         val token = accessToken.accessToken ?: accessToken.token
@@ -92,14 +92,15 @@ class LoginViewModel @Inject constructor(): ViewModel() {
             isLoginSuccess.value = false
             return
         }
-        LoginProvider.getLoginService(token, null)
+        LoginProvider.getLoginService(token, otp)
                 .getUser()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onError = this::onError,
                         onSuccess = {
 
-                            it.login?.let { Prefs.login = it }
+                            Prefs.login = it .login
+                            Prefs.avatarUrl = it.avatarUrl
                             isLoading.value = false
                             isLoginSuccess.value = true
                         }

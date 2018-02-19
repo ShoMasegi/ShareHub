@@ -9,7 +9,7 @@ import se.ansman.kotshi.JsonSerializable
 
 @JsonSerializable
 data class Login(
-        val login: String?,
-        val id: Long?,
-        @Json(name = "avatar_url") val avatarUrl: String?
+        val login: String,
+        val id: Long,
+        @Json(name = "avatar_url") val avatarUrl: String
 )

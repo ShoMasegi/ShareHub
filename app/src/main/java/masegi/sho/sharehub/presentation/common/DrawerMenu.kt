@@ -1,16 +1,20 @@
 package masegi.sho.sharehub.presentation.common
 
-import android.support.annotation.IdRes
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.View
 import masegi.sho.sharehub.R
+import masegi.sho.sharehub.data.model.NavigationItem
+import masegi.sho.sharehub.databinding.NavContentBinding
 import masegi.sho.sharehub.presentation.NavigationController
+import masegi.sho.sharehub.presentation.common.adapter.NavigationListAdapter
+import masegi.sho.sharehub.presentation.common.binding.setImageFromImageurl
+import masegi.sho.sharehub.presentation.common.pref.Prefs
 import javax.inject.Inject
-import kotlin.reflect.KClass
 
 /**
  * Created by masegi on 2018/02/10.
@@ -21,16 +25,29 @@ class DrawerMenu @Inject constructor(
         private val navigationController: NavigationController
 ) {
 
+
+    // MARK: - Property
+
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var currentNavigationItem: DrawerNavigationitem
+
+
+    // MARK: - Internal
 
     fun setup(
             drawerLayout: DrawerLayout,
+            contentView: View,
             navigationView: NavigationView,
+            navigationContentView: NavContentBinding,
             toolbar: Toolbar? = null,
-            actionBarDrawerSync: Boolean = false
+            actionBarDrawerSync: Boolean = true
     )
     {
+
+        navigationContentView.headerIcon.setImageFromImageurl(Prefs.avatarUrl)
+        val items = NavigationItem.values().toList()
+
+        navigationContentView.navMenuList.adapter = NavigationListAdapter(activity, items)
+        navigationContentView.navMenuList.divider = null
 
         this.drawerLayout = drawerLayout
         if (actionBarDrawerSync) {
@@ -41,41 +58,31 @@ class DrawerMenu @Inject constructor(
                     toolbar,
                     R.string.navigation_drawer_open,
                     R.string.navigation_drawer_close
-            ) { }
-                    .also {
+            )
+            {
 
-                        drawerLayout.addDrawerListener(it)
-                    }
-                    .apply {
+                override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
 
-                        isDrawerIndicatorEnabled = true
-                        isDrawerSlideAnimationEnabled = false
-                        syncState()
-                    }
-        }
-        navigationView.setNavigationItemSelectedListener { item ->
-
-            DrawerNavigationitem
-                    .values()
-                    .first { it.menuId == item.itemId }
-                    .apply {
-
-                        if (this != currentNavigationItem) {
-
-                            navigate(navigationController)
-                        }
-                    }
-            drawerLayout.closeDrawers()
-            false
-        }
-        currentNavigationItem = DrawerNavigationitem
-                .values()
-                .firstOrNull { activity::class == it.activityClass }
-                ?.also {
-
-                    navigationView.setCheckedItem(it.menuId)
+                    contentView.x = navigationView.width * slideOffset
+                    toolbar?.let {  it.x = navigationView.width * slideOffset }
+                    super.onDrawerSlide(drawerView, 0F)
                 }
-                ?: DrawerNavigationitem.OTHER
+            }.also {
+
+                drawerLayout.addDrawerListener(it)
+            }.apply {
+
+                isDrawerIndicatorEnabled = true
+                isDrawerSlideAnimationEnabled = false
+                syncState()
+            }
+        }
+        navigationContentView.navMenuList.setOnItemClickListener { _, _, position, _ ->
+
+            items[position].navigate(navigationController)
+            drawerLayout.closeDrawers()
+        }
+
     }
 
     fun closeDrawerIfNeeded(): Boolean {
@@ -89,18 +96,6 @@ class DrawerMenu @Inject constructor(
 
             true
         }
-    }
-
-    enum class DrawerNavigationitem(
-            @IdRes val menuId: Int,
-            val activityClass: KClass<*>,
-            val navigate: NavigationController.() -> Unit
-    )
-    {
-
-        OTHER(0, Unit::class, {
-
-        })
     }
 }
 

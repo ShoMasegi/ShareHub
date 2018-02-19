@@ -29,6 +29,7 @@
     <string name="pref_key_access_token">pref_key_access_token</string>
     <string name="pref_key_otp">pref_key_otp</string>
     <string name="pref_key_login">pref_key_login</string>
+    <string name="pref_key_avatar">pref_key_avatar</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

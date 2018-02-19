@@ -24,4 +24,9 @@ object Prefs : KotprefModel() {
             default = "",
             key = R.string.pref_key_login
     )
+
+    var avatarUrl: String by stringPref(
+            default = "",
+            key = R.string.pref_key_avatar
+    )
 }
