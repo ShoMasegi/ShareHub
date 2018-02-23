@@ -8,7 +8,7 @@
     <string name="login_button">Sign in</string>
     <string name="login_two_factor">Two-Factor code</string>
     <string name="login_require_two_factor">Please fill in two-factor code</string>
-    <string name="login_open_browser">open in browser</string>
+    <string name="login_open_browser">Open in Browser</string>
     <string name="login_fail_cant_get_token_data">Failed : Can not get Token Data</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 
 import masegi.sho.sharehub.R
 import masegi.sho.sharehub.databinding.ActivityLoginBinding
@@ -42,6 +43,7 @@ class LoginActivity : BaseActivity(), NavigationController.FragmentReplaceable {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.color_primary)
         if (savedInstanceState == null && binding != null) {
 
             navigationController.navigateToSplash()
