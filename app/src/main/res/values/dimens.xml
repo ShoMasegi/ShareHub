@@ -11,8 +11,8 @@
     <dimen name="drawer_header_icon">42dp</dimen>
     <!--<dimen name="design_navigation_icon_size" tools:override="true">24dp</dimen>-->
 
-    <dimen name="splash_icon">150dp</dimen>
-    <dimen name="splash_icon_low">100dp</dimen>
+    <dimen name="splash_icon">180dp</dimen>
+    <dimen name="splash_icon_low">150dp</dimen>
 
     <!-- Login dimens -->
     <dimen name="login_button_height">48dp</dimen>

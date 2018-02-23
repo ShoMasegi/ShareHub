@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.github.florent37.viewanimator.ViewAnimator
 import dagger.android.support.DaggerFragment
 
 import masegi.sho.sharehub.R
@@ -14,6 +15,7 @@ import masegi.sho.sharehub.databinding.FragmentLoginBinding
 import masegi.sho.sharehub.presentation.NavigationController
 import masegi.sho.sharehub.util.GithubLoginUtils
 import masegi.sho.sharehub.util.ext.observeNonNull
+import masegi.sho.sharehub.util.ext.setUsable
 import masegi.sho.sharehub.util.ext.setVisible
 import javax.inject.Inject
 
@@ -57,6 +59,7 @@ class LoginFragment : DaggerFragment() {
             val twoFactor = binding.twoFactor.text.toString()
             loginViewModel.login(username, password, twoFactor)
         }
+        startAnimation()
     }
 
 
@@ -81,19 +84,39 @@ class LoginFragment : DaggerFragment() {
         })
         loginViewModel.isLoading.observeNonNull(this, {
 
-            binding.loginButton.setVisible(!it)
-            binding.loginBrowserButton.setVisible(!it)
+            binding.loginButton.setUsable(!it)
+            binding.loginBrowserButton.setUsable(it)
             binding.loginProgress.setVisible(it)
         })
         loginViewModel.isTwoFactor.observeNonNull(this, {
 
             if (it) {
 
-                binding.twoFactorForm.setVisible(it)
+                binding.twoFactorForm.setUsable(it)
                 Toast.makeText(context, R.string.login_require_two_factor, Toast.LENGTH_LONG)
                         .show()
             }
         })
+    }
+
+    private fun startAnimation() {
+
+        ViewAnimator
+                .animate(binding.loginTopImage)
+                    .dp().translationY(144F, 0F)
+                    .decelerate()
+                    .duration(1000)
+                .start()
+
+        ViewAnimator
+                .animate(binding.formParentLayout)
+                    .dp().translationY(144F, 0F)
+                    .duration(1000)
+                .andAnimate(binding.formParentLayout)
+                    .alpha(0F, 0F, 0F, 1F)
+                    .decelerate()
+                    .duration(1000)
+                .start()
     }
 
     companion object {

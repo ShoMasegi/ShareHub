@@ -39,7 +39,8 @@ dependencies {
             arch          : "1.0.0",
             kotpref       : "2.3.0",
             parcel        : "1.1.1",
-            glide         : "4.5.0"
+            glide         : "4.5.0",
+            viewAnimator  : "1.0.5"
     ]
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -101,6 +102,8 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$versions.glide"
     implementation "com.github.bumptech.glide:okhttp3-integration:$versions.glide"
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
+    // view animator
+    compile "com.github.florent37:viewanimator:1.0.5"
 
     // =====Ktx
     implementation "androidx.core:core-ktx:0.1"

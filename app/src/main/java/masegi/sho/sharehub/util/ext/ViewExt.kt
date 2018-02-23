@@ -8,7 +8,21 @@ import android.view.View
 
 fun View.setVisible(visible: Boolean) {
 
-    if (visible) toVisible() else toGone()
+    if (visible) toVisible() else toInvisible()
+}
+
+fun View.setUsable(usable: Boolean) {
+
+    isEnabled = if (usable) {
+
+        toVisible()
+        true
+    }
+    else {
+
+        toInvisible()
+        false
+    }
 }
 
 fun View.toVisible() {
