@@ -85,7 +85,7 @@ class LoginFragment : DaggerFragment() {
         loginViewModel.isLoading.observeNonNull(this, {
 
             binding.loginButton.setUsable(!it)
-            binding.loginBrowserButton.setUsable(it)
+            binding.loginBrowserButton.setUsable(!it)
             binding.loginProgress.setVisible(it)
         })
         loginViewModel.isTwoFactor.observeNonNull(this, {
