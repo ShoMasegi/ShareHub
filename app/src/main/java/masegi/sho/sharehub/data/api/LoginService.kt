@@ -1,9 +1,9 @@
 package masegi.sho.sharehub.data.api
 
 import io.reactivex.Single
-import masegi.sho.sharehub.data.model.AccessToken
-import masegi.sho.sharehub.data.model.AuthModel
-import masegi.sho.sharehub.data.model.Login
+import masegi.sho.sharehub.data.model.login.AccessToken
+import masegi.sho.sharehub.data.model.login.AuthModel
+import masegi.sho.sharehub.data.model.login.Login
 import retrofit2.http.*
 
 /**

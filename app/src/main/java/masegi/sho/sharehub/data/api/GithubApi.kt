@@ -1,6 +1,6 @@
 package masegi.sho.sharehub.data.api
 
-import masegi.sho.sharehub.data.model.Event
+import masegi.sho.sharehub.data.model.event.Event
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -1,6 +1,8 @@
-package masegi.sho.sharehub.data.model
+package masegi.sho.sharehub.data.model.event
 
 import com.squareup.moshi.Json
+import masegi.sho.sharehub.data.model.User
+import masegi.sho.sharehub.data.model.Repo
 import org.threeten.bp.LocalDateTime
 import se.ansman.kotshi.JsonSerializable
 
@@ -11,10 +13,10 @@ import se.ansman.kotshi.JsonSerializable
 @JsonSerializable
 data class Event(
         val id: Long,
-        val type: String,
-        val actor: Actor,
+        val type: EventType,
+        val user: User,
         val repo: Repo,
         val payload: Payload?,
-        val publicEvent: Boolean?,
+        @Json(name = "public") val publicEvent: Boolean?,
         @Json(name = "created_at") val createdAt: LocalDateTime
 )

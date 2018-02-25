@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import masegi.sho.sharehub.data.api.GithubApi
-import masegi.sho.sharehub.data.model.Event
+import masegi.sho.sharehub.data.model.event.Event
 import masegi.sho.sharehub.data.model.NetworkState
 import masegi.sho.sharehub.data.paging.EventDataSourceFactory
 import javax.inject.Inject

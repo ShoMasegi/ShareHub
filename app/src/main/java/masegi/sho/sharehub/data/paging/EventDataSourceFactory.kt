@@ -2,7 +2,7 @@ package masegi.sho.sharehub.data.paging
 
 import android.arch.paging.DataSource
 import masegi.sho.sharehub.data.api.GithubApi
-import masegi.sho.sharehub.data.model.Event
+import masegi.sho.sharehub.data.model.event.Event
 
 /**
  * Created by masegi on 2018/02/17.

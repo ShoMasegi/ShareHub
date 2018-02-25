@@ -1,4 +1,4 @@
-package masegi.sho.sharehub.data.model
+package masegi.sho.sharehub.data.model.login
 
 import com.squareup.moshi.Json
 import masegi.sho.sharehub.BuildConfig

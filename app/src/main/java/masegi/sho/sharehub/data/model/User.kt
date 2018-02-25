@@ -8,8 +8,9 @@ import se.ansman.kotshi.JsonSerializable
  */
 
 @JsonSerializable
-data class Payload(
-        @Json(name = "push_id") val pushId: Long?,
-        val ref: String?,
-        val commits: List<Commit>?
+data class User(
+        val id: Long,
+        val login: String,
+        val url: String,
+        @Json(name = "avatar_url") val avatarUrl: String
 )

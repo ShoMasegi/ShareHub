@@ -1,5 +1,6 @@
 package masegi.sho.sharehub.data.model
 
+import masegi.sho.sharehub.data.model.login.Author
 import se.ansman.kotshi.JsonSerializable
 
 /**
@@ -8,8 +9,9 @@ import se.ansman.kotshi.JsonSerializable
 
 @JsonSerializable
 data class Commit(
-        val sha: String,
+        val url: String,
+        val html_url: String?,
+        val sha: String?,
         val author: Author,
-        val message: String,
-        val url: String
+        val message: String
 )

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import masegi.sho.sharehub.R
-import masegi.sho.sharehub.data.model.Event
+import masegi.sho.sharehub.data.model.event.Event
 import masegi.sho.sharehub.databinding.ItemEventBinding
 
 /**

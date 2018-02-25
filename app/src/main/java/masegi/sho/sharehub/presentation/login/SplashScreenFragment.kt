@@ -9,13 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
-import masegi.sho.sharehub.data.model.AccessToken
+import masegi.sho.sharehub.data.model.login.AccessToken
 import masegi.sho.sharehub.databinding.FragmentSplashBinding
 
 import masegi.sho.sharehub.presentation.NavigationController
 import masegi.sho.sharehub.presentation.common.pref.Prefs
 import masegi.sho.sharehub.util.ext.observeNonNull
-import masegi.sho.sharehub.util.ext.setVisible
 import javax.inject.Inject
 
 class SplashScreenFragment : DaggerFragment() {

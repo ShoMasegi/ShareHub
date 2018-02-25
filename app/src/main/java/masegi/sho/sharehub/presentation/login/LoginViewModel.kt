@@ -8,8 +8,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import masegi.sho.sharehub.data.api.LoginProvider
-import masegi.sho.sharehub.data.model.AccessToken
-import masegi.sho.sharehub.data.model.AuthModel
+import masegi.sho.sharehub.data.model.login.AccessToken
+import masegi.sho.sharehub.data.model.login.AuthModel
 import masegi.sho.sharehub.presentation.common.pref.Prefs
 import masegi.sho.sharehub.util.GithubLoginUtils
 import masegi.sho.sharehub.util.ext.code

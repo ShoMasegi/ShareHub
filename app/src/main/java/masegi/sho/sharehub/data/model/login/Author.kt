@@ -1,4 +1,4 @@
-package masegi.sho.sharehub.data.model
+package masegi.sho.sharehub.data.model.login
 
 import se.ansman.kotshi.JsonSerializable
 
@@ -9,5 +9,6 @@ import se.ansman.kotshi.JsonSerializable
 @JsonSerializable
 data class Author(
         val name: String,
-        val email: String?
+        val email: String?,
+        val username: String?
 )

@@ -12,7 +12,7 @@ data class Repo(
         val id: Long,
         val name: String,
         val fullName: String?,
-        val owner: Actor?,
+        val owner: User?,
         @Json(name = "private") val privateRepo: Boolean?,
         val description: String?,
         val url: String

@@ -5,9 +5,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
 import android.util.Log
 import masegi.sho.sharehub.data.api.GithubApi
-import masegi.sho.sharehub.data.model.Event
+import masegi.sho.sharehub.data.model.event.Event
 import masegi.sho.sharehub.data.model.NetworkState
-import masegi.sho.sharehub.presentation.common.pref.Prefs
 import java.io.IOException
 
 /**
