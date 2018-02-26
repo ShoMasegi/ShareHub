@@ -5,8 +5,10 @@ import dagger.Module
 import dagger.Provides
 import masegi.sho.sharehub.data.api.helper.ApplicationJsonAdapterFactory
 import masegi.sho.sharehub.data.api.GithubApi
+import masegi.sho.sharehub.data.api.helper.EventTypeAdapter
 import masegi.sho.sharehub.data.api.helper.LocalDateTimeAdapter
 import masegi.sho.sharehub.data.api.helper.OAuthIntercepter
+import masegi.sho.sharehub.data.model.event.Event
 import masegi.sho.sharehub.presentation.common.pref.Prefs
 import okhttp3.OkHttpClient
 import org.threeten.bp.LocalDateTime
@@ -46,6 +48,7 @@ open class NetworkModule {
                                 Moshi.Builder()
                                         .add(ApplicationJsonAdapterFactory.instance)
                                         .add(LocalDateTime::class.java, LocalDateTimeAdapter())
+                                        .add(Event.EventType::class.java, EventTypeAdapter())
                                         .build())
                 )
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())

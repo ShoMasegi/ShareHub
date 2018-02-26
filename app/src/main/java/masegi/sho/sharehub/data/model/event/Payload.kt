@@ -11,6 +11,7 @@ import se.ansman.kotshi.JsonSerializable
 @JsonSerializable
 data class Payload(
         val comment: Comment?,
+        val user: User?,
         val ref_type: String?,
         val ref: String?,
         val description: String?,
@@ -22,7 +23,7 @@ data class Payload(
         val number: Int?,
         val pull_request: PullRequest?,
         val review: Review?,
-        val size: Int = 0,
+        val size: Int?,
         val gist: Gist?,
         val issue: Issue?,
         @Json(name = "push_id") val pushId: Long?,

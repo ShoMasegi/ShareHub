@@ -19,5 +19,5 @@ data class PullRequest(
         val created_at: LocalDateTime,
         val commits_url: String?,
         val repository: Repo?,
-        val sender: User
+        val sender: User?
 )
