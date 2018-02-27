@@ -48,10 +48,7 @@ class EventTypeAdapter : JsonAdapter<EventType>() {
 
             EventType.values().forEach { type ->
 
-                val comparedWith = type.toString().split('_').joinToString("") {
-
-                    it.beginWithUpperCase()
-                } + "Event"
+                val comparedWith = type.toString() + "Event"
                 if (comparedWith == jsonString)
                     return type
             }
@@ -62,16 +59,6 @@ class EventTypeAdapter : JsonAdapter<EventType>() {
         private fun convertToJson(value: EventType?): String {
 
             return ""
-        }
-
-        private fun String.beginWithUpperCase(): String {
-
-            return when(this.length) {
-
-                0 -> ""
-                1 -> this.toUpperCase()
-                else -> this[0].toUpperCase() + this.substring(1).toLowerCase()
-            }
         }
     }
 }

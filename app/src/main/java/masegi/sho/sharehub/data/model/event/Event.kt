@@ -59,6 +59,22 @@ data class Event(
         STATUS,
         TEAM,
         TEAM_ADD,
-        WATCH
+        WATCH;
+
+        override fun toString(): String =
+            super.toString().split('_').joinToString("") {
+
+                it.beginWithUpperCase()
+            }
+
+        private fun String.beginWithUpperCase(): String {
+
+            return when(this.length) {
+
+                0 -> ""
+                1 -> this.toUpperCase()
+                else -> this[0].toUpperCase() + this.substring(1).toLowerCase()
+            }
+        }
     }
 }
