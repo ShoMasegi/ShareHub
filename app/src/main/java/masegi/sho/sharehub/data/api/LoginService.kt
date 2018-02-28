@@ -1,9 +1,9 @@
 package masegi.sho.sharehub.data.api
 
 import io.reactivex.Single
+import masegi.sho.sharehub.data.model.User
 import masegi.sho.sharehub.data.model.login.AccessToken
 import masegi.sho.sharehub.data.model.login.AuthModel
-import masegi.sho.sharehub.data.model.login.Login
 import retrofit2.http.*
 
 /**
@@ -13,7 +13,7 @@ import retrofit2.http.*
 interface LoginService {
 
     @GET("user")
-    fun getUser(): Single<Login>
+    fun getUser(): Single<User>
 
     @POST("authorizations")
     fun login(@Body authModel: AuthModel): Single<AccessToken>

@@ -29,4 +29,9 @@ object Prefs : KotprefModel() {
             default = "",
             key = R.string.pref_key_avatar
     )
+
+    var url: String by stringPref(
+            default = "https://github.com",
+            key = R.string.pref_key_url
+    )
 }

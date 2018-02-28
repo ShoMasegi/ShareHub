@@ -48,19 +48,22 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
     fun replaceFragment(fragment: Fragment) {
 
-        fragmentManager
+        val transaction = fragmentManager
                 .beginTransaction()
                 .replace(containerId, fragment, null)
-                .commitAllowingStateLoss()
+        if (fragmentManager.isStateSaved) {
+
+            transaction.commitAllowingStateLoss()
+        }
+        else {
+
+            transaction.commit()
+        }
     }
 
     fun navigationToExternalBrowser(url: String) {
 
         val customTabsPackageName = CustomTabsHelper.getPackageNameToUse(activity)
-        if (tryLaunchingSpecificApp(url, customTabsPackageName)) {
-
-            return
-        }
         val customTabsIntent = CustomTabsIntent.Builder()
                 .setShowTitle(true)
                 .setToolbarColor(ContextCompat.getColor(activity, R.color.color_primary))
@@ -82,32 +85,6 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
     // MARK: - Private
 
-    private fun tryLaunchingSpecificApp(url: String, customTabsPackageName: String?): Boolean {
-
-        val appUri = url.toUri().let {
-
-            if (it.host.contains("facebook")) {
-
-                (FACEBOOK_SCHEME + url).toUri()
-            }
-            else it
-        }
-        val appIntent = Intent(Intent.ACTION_VIEW, appUri)
-        val intentResolveInfo = activity.packageManager.resolveActivity(
-                appIntent,
-                PackageManager.MATCH_DEFAULT_ONLY
-        )
-        intentResolveInfo?.activityInfo?.packageName?.let {
-
-            if (customTabsPackageName != null && it != customTabsPackageName) {
-
-                activity.startActivity(appIntent)
-                return false
-            }
-        }
-        return false
-    }
-
     private fun tryUsingCustomTabs(customTabsPackageName: String?,
                                    customTabsIntent: CustomTabsIntent,
                                    webUri: Uri?): Boolean {
@@ -127,10 +104,5 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     interface FragmentReplaceable {
 
         fun replaceFragment(fragment: Fragment)
-    }
-
-    companion object {
-
-        private const val FACEBOOK_SCHEME = "fb://facewebmodal/f?href="
     }
 }

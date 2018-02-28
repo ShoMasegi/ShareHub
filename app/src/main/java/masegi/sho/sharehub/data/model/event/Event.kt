@@ -14,7 +14,7 @@ import se.ansman.kotshi.JsonSerializable
 data class Event(
         val id: Long,
         val type: EventType?,
-        val actor: User?,
+        val actor: Actor?,
         val repo: Repo?,
         val payload: Payload,
         @Json(name = "public") val publicEvent: Boolean?,

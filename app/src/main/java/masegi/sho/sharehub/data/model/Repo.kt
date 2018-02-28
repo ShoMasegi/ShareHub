@@ -15,5 +15,6 @@ data class Repo(
         val owner: User?,
         @Json(name = "private") val privateRepo: Boolean?,
         val description: String?,
-        val url: String
+        val url: String,
+        val html_url: String?
 )

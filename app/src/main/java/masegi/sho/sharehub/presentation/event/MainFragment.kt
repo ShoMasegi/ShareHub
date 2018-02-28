@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
 
 import masegi.sho.sharehub.data.model.NetworkState
+import masegi.sho.sharehub.data.model.event.Event
 import masegi.sho.sharehub.databinding.FragmentMainBinding
 import masegi.sho.sharehub.presentation.NavigationController
 import masegi.sho.sharehub.presentation.common.adapter.EventsAdapter
@@ -35,6 +36,14 @@ class MainFragment : DaggerFragment() {
 
     private lateinit var adapter: EventsAdapter
 
+    private val avatarTouchUpInside: (event: Event?) -> Unit = { event ->
+
+        event?.actor?.let {
+
+            mainViewModel.getUserInfo(it.login)
+        }
+    }
+
 
     // MARK: - Fragment
 
@@ -42,16 +51,17 @@ class MainFragment : DaggerFragment() {
                               savedInstanceState: Bundle?): View? {
 
         binding = FragmentMainBinding.inflate(inflater, container!!, false)
-        adapter = EventsAdapter()
+        adapter = EventsAdapter(
+                avatarTouchUpInside,
+                EventItemClickEventFactory(navigationController).build()
+        )
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-        setupLayout()
-        setupSwipeToRefresh()
-        setupScrollToTop()
+        setup()
         mainViewModel.events.observe(this) {
 
             adapter.setList(it)
@@ -60,6 +70,20 @@ class MainFragment : DaggerFragment() {
 
 
     // MARK: - Private
+
+    private fun setup() {
+
+        setupLayout()
+        setupSwipeToRefresh()
+        setupScrollToTop()
+        mainViewModel.userHtmlUrl.observe(this) {
+
+            if (it != null) {
+
+                navigationController.navigationToExternalBrowser(it)
+            }
+        }
+    }
 
     private fun setupLayout() {
 

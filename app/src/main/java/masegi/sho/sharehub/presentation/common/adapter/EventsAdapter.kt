@@ -15,7 +15,10 @@ import masegi.sho.sharehub.databinding.ItemEventBinding
  * Created by masegi on 2018/02/17.
  */
 
-class EventsAdapter : PagedListAdapter<Event, EventsAdapter.ViewHolder>(DIFF_CALLBACK) {
+class EventsAdapter(
+        private val avatarTouchUpInside: ((event: Event?) -> Unit)? = null,
+        private val itemTouchUpInside: ((event: Event?) -> Unit)? = null
+) : PagedListAdapter<Event, EventsAdapter.ViewHolder>(DIFF_CALLBACK) {
 
 
     // MARK: - PagedListAdapter
@@ -28,6 +31,7 @@ class EventsAdapter : PagedListAdapter<Event, EventsAdapter.ViewHolder>(DIFF_CAL
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 
         holder?.bindEvent(getItem(position))
+        holder?.setTouchUpInside(getItem(position), avatarTouchUpInside, itemTouchUpInside)
     }
 
     class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
@@ -37,6 +41,23 @@ class EventsAdapter : PagedListAdapter<Event, EventsAdapter.ViewHolder>(DIFF_CAL
         fun bindEvent(event: Event?) {
 
             binding.event = event
+        }
+
+        fun setTouchUpInside(
+                event: Event?,
+                avatarTouchUpInside: ((event: Event?) -> Unit)? = null,
+                itemTouchUpInside: ((event: Event?) -> Unit)? = null
+        )
+        {
+
+            avatarTouchUpInside?.let {
+
+                binding.actorAvatar.setOnClickListener { it(event) }
+            }
+            itemTouchUpInside?.let {
+
+                binding.rootView.setOnClickListener { it(event) }
+            }
         }
     }
 

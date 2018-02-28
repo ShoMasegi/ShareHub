@@ -11,5 +11,6 @@ data class Gist(
         val url: String,
         val id: Long,
         val description: String?,
-        val owner: User
+        val owner: User,
+        val html_url: String
 )

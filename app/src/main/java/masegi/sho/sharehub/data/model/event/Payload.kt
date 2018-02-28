@@ -26,6 +26,11 @@ data class Payload(
         val size: Int?,
         val gist: Gist?,
         val issue: Issue?,
+        val pages: List<Page>?,
+        val milestone: Milestone?,
+        val compare: String?,
+        val release: Release?,
+        val commit: Commit?,
         @Json(name = "push_id") val pushId: Long?,
         val commits: List<Commit>?
 )

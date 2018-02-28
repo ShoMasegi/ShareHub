@@ -26,11 +26,16 @@ import javax.inject.Singleton
 class LoginViewModel @Inject constructor(): ViewModel() {
 
 
-    // MARK: - Internal
+    // MARK: - Property
 
     internal var isLoginSuccess: MutableLiveData<Boolean> = MutableLiveData()
     internal var isLoading: MutableLiveData<Boolean> = MutableLiveData()
     internal var isTwoFactor: MutableLiveData<Boolean> = MutableLiveData()
+
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
+
+    // MARK: - Internal
 
     internal fun handleAuth(tokenCode: String) {
 
@@ -101,6 +106,7 @@ class LoginViewModel @Inject constructor(): ViewModel() {
 
                             Prefs.login = it .login
                             Prefs.avatarUrl = it.avatarUrl
+                            Prefs.url = it.url
                             isLoading.value = false
                             isLoginSuccess.value = true
                         }
@@ -110,8 +116,6 @@ class LoginViewModel @Inject constructor(): ViewModel() {
 
 
     // MARK: - Private
-
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private fun onError(throwable: Throwable) {
 

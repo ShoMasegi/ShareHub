@@ -12,6 +12,6 @@ data class Commit(
         val url: String,
         val html_url: String?,
         val sha: String?,
-        val author: Author,
-        val message: String
+        val author: Author?,
+        val message: String?
 )
