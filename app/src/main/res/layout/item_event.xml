@@ -48,31 +48,54 @@
             tools:text="@string/event_type" />
 
         <TextView
+            android:id="@+id/by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="by "
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/in"
+            app:layout_constraintStart_toStartOf="@+id/in"
+            app:layout_constraintTop_toBottomOf="@+id/event_name" />
+
+        <TextView
             android:id="@+id/actor_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="4dp"
-            android:text='@{"by " + event.actor.login}'
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
+            android:text='@{event.actor.login}'
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/event_name"
+            app:layout_constraintBaseline_toBaselineOf="@+id/by"
+            app:layout_constraintStart_toEndOf="@+id/by"
             app:layout_constraintTop_toBottomOf="@+id/event_name"
-            tools:text="by ShoMasegi" />
+            tools:text="ShoMasegi" />
+
+        <TextView
+            android:id="@+id/in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="at "
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@+id/event_name"
+            app:layout_constraintTop_toBottomOf="@+id/by" />
 
         <TextView
             android:id="@+id/repo_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text='@{"in " + event.repo.name}'
+            android:layout_marginStart="2dp"
+            android:text='@{event.repo.name}'
             android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@+id/in"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/event_name"
-            app:layout_constraintTop_toBottomOf="@+id/actor_name"
-            tools:text="in CyberAgent/git-push-hackathon" />
+            app:layout_constraintStart_toEndOf="@+id/in"
+            tools:text="CyberAgent/git-push-hackathon" />
 
         <TextView
             android:id="@+id/date"
@@ -83,6 +106,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/event_name"
             tools:text="3 days ago" />
+
+        <View
+            android:id="@+id/event_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repo_name" />
 
     </android.support.constraint.ConstraintLayout>
 
