@@ -16,7 +16,7 @@ import java.io.IOException
 class PageKeyedEventDataSource(private val api: GithubApi) : PageKeyedDataSource<Int, Event>() {
 
 
-    // MARK: - Internal
+    // MARK: - Property
 
     internal val networkState = MutableLiveData<NetworkState>()
 

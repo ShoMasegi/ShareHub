@@ -53,7 +53,7 @@ class MainFragment : DaggerFragment() {
 
         super.onViewCreated(view, savedInstanceState)
         setupLayout()
-        mainViewModel.events.observe(this, { pagedList ->
+        mainViewModel.repository.events.observe(this, { pagedList ->
 
             adapter.setList(pagedList)
         })
