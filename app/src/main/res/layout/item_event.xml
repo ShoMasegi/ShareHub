@@ -72,6 +72,7 @@
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/by"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/by"
             app:layout_constraintTop_toBottomOf="@+id/event_name"
             tools:text="ShoMasegi" />

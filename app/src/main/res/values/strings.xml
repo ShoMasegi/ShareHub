@@ -32,9 +32,6 @@
     <string name="pref_key_avatar">pref_key_avatar</string>
     <string name="pref_key_url">pref_key_url</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <!-- Layout -->
     <string name="actor_avatar">actor avatar</string>
     <string name="event_type">EventType</string>

@@ -7,6 +7,7 @@ import android.util.Log
 import masegi.sho.sharehub.data.api.GithubApi
 import masegi.sho.sharehub.data.model.event.Event
 import masegi.sho.sharehub.data.model.NetworkState
+import masegi.sho.sharehub.presentation.common.pref.Prefs
 import java.io.IOException
 
 /**
@@ -55,9 +56,7 @@ class PageKeyedEventDataSource(private val api: GithubApi) : PageKeyedDataSource
 
         try {
 
-            // TODO: replace
-//            val response = api.getReceivedEvents(Prefs.login, page).execute()
-            val response = api.getEvents(page).execute()
+            val response = api.getReceivedEvents(Prefs.login, page).execute()
 
             response.body()?.let { events ->
 
