@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
-import android.view.animation.Transformation
 import masegi.sho.sharehub.data.api.GithubApi
 import masegi.sho.sharehub.data.model.NetworkState
 import masegi.sho.sharehub.data.model.event.Event

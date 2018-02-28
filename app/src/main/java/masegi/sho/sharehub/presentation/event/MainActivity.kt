@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.widget.TextView
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 import masegi.sho.sharehub.R
 import masegi.sho.sharehub.databinding.ActivityMainBinding
 import masegi.sho.sharehub.presentation.NavigationController
@@ -27,6 +30,8 @@ class MainActivity : BaseActivity() {
         )
     }
 
+    internal var title: TextView? = null
+
 
     // MARK: - Activity
 
@@ -39,6 +44,7 @@ class MainActivity : BaseActivity() {
             it.setDisplayHomeAsUpEnabled(false)
         }
         binding.toolbarTitle.text = resources.getString(R.string.main_title)
+        title = binding.toolbarTitle
         binding.navContent?.let {
 
             drawerMenu.setup(binding.drawerLayout, binding.content, binding.drawer, it, binding.toolbar)

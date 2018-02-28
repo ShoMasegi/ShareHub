@@ -51,6 +51,7 @@ class MainFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupLayout()
         setupSwipeToRefresh()
+        setupScrollToTop()
         mainViewModel.events.observe(this) {
 
             adapter.setList(it)
@@ -76,6 +77,18 @@ class MainFragment : DaggerFragment() {
         binding.swipeRefresh.setOnRefreshListener {
 
             mainViewModel.refresh()
+        }
+    }
+
+    private fun setupScrollToTop() {
+
+        val title = (activity as MainActivity).title
+         title?.let {
+
+             it.setOnClickListener {
+
+                 binding.recycler.smoothScrollToPosition(0)
+             }
         }
     }
 
