@@ -19,13 +19,14 @@ class PageKeyedEventDataSource(private val api: GithubApi) : PageKeyedDataSource
     // MARK: - Property
 
     internal val networkState = MutableLiveData<NetworkState>()
+    internal val initialLoad = MutableLiveData<NetworkState>()
 
 
     // MARK: - PageKeyedDataSource
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Event>) {
 
-        callApi(1) { events, next ->
+        callApi(1, true) { events, next ->
 
             callback.onResult(events, null, next)
         }
@@ -33,7 +34,7 @@ class PageKeyedEventDataSource(private val api: GithubApi) : PageKeyedDataSource
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Event>) {
 
-        callApi(params.key) { events, next ->
+        callApi(params.key, false) { events, next ->
 
             callback.onResult(events, next)
         }
@@ -47,10 +48,10 @@ class PageKeyedEventDataSource(private val api: GithubApi) : PageKeyedDataSource
     // MARK: - Private
 
     @SuppressLint("LongLogTag")
-    private fun callApi(page: Int, callback: (events: List<Event>, next: Int?) -> Unit) {
+    private fun callApi(page: Int, isInitial: Boolean, callback: (events: List<Event>, next: Int?) -> Unit) {
 
+        if (isInitial) initialLoad.postValue(NetworkState.RUNNING)
         networkState.postValue(NetworkState.RUNNING)
-        var state = NetworkState.FAILED
 
         try {
 
@@ -71,13 +72,16 @@ class PageKeyedEventDataSource(private val api: GithubApi) : PageKeyedDataSource
                 }
 
                 callback(events, next)
-                state = NetworkState.SUCCESS
+                if (isInitial) initialLoad.postValue(NetworkState.SUCCESS)
+                networkState.postValue(NetworkState.SUCCESS)
+                return
             }
         }
         catch (e: IOException) {
 
             Log.e("PageKeyedEventDataSource", e.message)
+            if (isInitial) initialLoad.postValue(NetworkState.FAILED)
+            networkState.postValue(NetworkState.FAILED)
         }
-        networkState.postValue(state)
     }
 }

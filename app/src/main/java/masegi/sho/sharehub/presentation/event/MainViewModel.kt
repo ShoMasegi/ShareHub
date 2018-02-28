@@ -14,8 +14,18 @@ class MainViewModel @Inject constructor(
 ): ViewModel() {
 
 
+    // MARK: - Property
+
+    private val repository: EventRepository = EventRepository(api)
+    internal val events = repository.events
+    internal val networkState = repository.networkState
+    internal val initialLoad = repository.initialLoad
+
+
     // MARK: - Internal
 
-    internal val repository: EventRepository = EventRepository(api)
+    fun refresh() {
 
+        repository.refresh()
+    }
 }

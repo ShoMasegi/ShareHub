@@ -1,8 +1,10 @@
 package masegi.sho.sharehub.data.repository
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.Transformations
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
+import android.view.animation.Transformation
 import masegi.sho.sharehub.data.api.GithubApi
 import masegi.sho.sharehub.data.model.NetworkState
 import masegi.sho.sharehub.data.model.event.Event
@@ -22,6 +24,7 @@ class EventRepository(
 
     internal val events: LiveData<PagedList<Event>>
     internal val networkState: LiveData<NetworkState>
+    internal val initialLoad: LiveData<NetworkState>
 
     private val factory = EventDataSourceFactory(githubApi)
 
@@ -36,7 +39,13 @@ class EventRepository(
                 .build()
 
         events = LivePagedListBuilder(factory, config).build()
-        networkState = factory.source.networkState
+        networkState = Transformations.switchMap(factory.sourceLiveData) {
+
+            it.initialLoad
+        }
+        initialLoad = Transformations.switchMap(factory.sourceLiveData) {
+            it.networkState
+        }
     }
 
 
@@ -44,6 +53,6 @@ class EventRepository(
 
     fun refresh() {
 
-        factory.source.invalidate()
+        factory.sourceLiveData.value?.invalidate()
     }
 }
