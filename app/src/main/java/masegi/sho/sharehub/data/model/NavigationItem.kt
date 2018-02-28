@@ -2,7 +2,7 @@ package masegi.sho.sharehub.data.model
 
 import android.support.annotation.DrawableRes
 import masegi.sho.sharehub.R
-import masegi.sho.sharehub.presentation.MainActivity
+import masegi.sho.sharehub.presentation.event.MainActivity
 import masegi.sho.sharehub.presentation.NavigationController
 import kotlin.reflect.KClass
 

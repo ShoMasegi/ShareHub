@@ -2,7 +2,7 @@ package masegi.sho.sharehub.di.activitymodule
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import masegi.sho.sharehub.presentation.MainActivity
+import masegi.sho.sharehub.presentation.event.MainActivity
 
 /**
  * Created by masegi on 2018/02/14.

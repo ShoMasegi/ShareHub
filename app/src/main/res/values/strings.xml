@@ -37,4 +37,7 @@
     <!-- Layout -->
     <string name="actor_avatar">actor avatar</string>
     <string name="event_type">EventType</string>
+
+    <!-- TItles -->
+    <string name="main_title">Event</string>
 </resources>

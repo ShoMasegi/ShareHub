@@ -10,7 +10,8 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import androidx.net.toUri
 import masegi.sho.sharehub.R
-import masegi.sho.sharehub.presentation.login.LoginFragment
+import masegi.sho.sharehub.presentation.event.MainActivity
+import masegi.sho.sharehub.presentation.event.MainFragment
 import masegi.sho.sharehub.presentation.login.SplashScreenFragment
 import masegi.sho.sharehub.util.CustomTabsHelper
 import javax.inject.Inject
@@ -30,14 +31,14 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
     // MARK: - Internal
 
-    fun navigateToLogin() {
-
-        replaceFragment(LoginFragment.newInstance())
-    }
-
     fun navigateToSplash() {
 
         replaceFragment(SplashScreenFragment.newInstance())
+    }
+
+    fun navigateToMain() {
+
+        replaceFragment(MainFragment.newInstance())
     }
 
     fun navigateToMainActivity() {

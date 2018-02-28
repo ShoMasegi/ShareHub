@@ -119,6 +119,7 @@ class LoginFragment : DaggerFragment() {
                 .start()
     }
 
+
     companion object {
 
         fun newInstance(): LoginFragment = LoginFragment()
